@@ -75,4 +75,5 @@ Route::group(['middleware' => ['guru']], function () {
   Route::post('/guru/ujian/api/add',"GuruControl@api_ujianadd")->name("guru.ujian.api.add");
   Route::post('/guru/ujian/api/upload',"GuruControl@upload")->name("guru.ujian.api.upload");
   Route::get('/guru/ujian/api/view/{id?}',"GuruControl@api_ujianview")->name("guru.ujian.api.view");
+  Route::get('/guru/ujian/api/banksoal/{id?}',"GuruControl@api_ujiansoal")->name("guru.ujian.api.banksoal");
 });

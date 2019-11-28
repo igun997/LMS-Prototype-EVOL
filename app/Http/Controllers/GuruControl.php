@@ -136,5 +136,53 @@ class GuruControl extends Controller
       $matpel = Matpel::where(["nip"=>session()->get("id")])->get();
       return view("guru.ujian_add")->with(["title"=>"Tambah Data Ujian","matpel"=>$matpel]);
     }
-
+    public function api_ujiansoal($id)
+    {
+      $search = Matpel::where(["id"=>$id]);
+      if ($search->count() > 0) {
+        $datasoal = $search->first();
+        $soal = $datasoal->banksoals;
+        return response()->json(["status"=>1,"data"=>$soal]);
+      }else {
+        return response()->json(["status"=>0]);
+      }
+    }
+    public function api_ujianadd(Request $req)
+    {
+      $req->validate([
+        "nama_ujian"=>"required",
+        "matpel_id"=>"required",
+        "tgl_dibuka"=>"required",
+        "tgl_ditutup"=>"required",
+        "waktu"=>"required",
+      ]);
+      $d = $req->all();
+      if ($d["pin"] == "") {
+        $d["pin"] = null;
+      }
+      if (count($d["banksoal_id"]) == 0) {
+        return response()->json(["status"=>0]);
+      }else {
+        $bsoal = $d["banksoal_id"];
+        unset($d["banksoal_id"]);
+      }
+      // return response()->json($d);
+      $s = Ujian::create($d);
+      if ($s) {
+        $lastid = $s->id;
+        $newbsoal = [];
+        foreach ($bsoal as $key => $value) {
+            $newbsoal[] = ["ujian_id"=>$lastid,"banksoal_id"=>$value];
+        }
+        $so = UjianItem::insert($newbsoal);
+        if ($so) {
+          return response()->json(["status"=>1]);
+        }else {
+          Ujian::find($lastid)->delete();
+          return response()->json(["status"=>0]);
+        }
+      }else {
+        return response()->json(["status"=>0]);
+      }
+    }
 }
