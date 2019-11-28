@@ -136,7 +136,7 @@
       toastr.warning("Anda Terputus Dengan Server");
     })
     url = null;
-    $("#formSubmit").html(temp);
+    // $("#formSubmit").html(temp);
     // $("#formSubmit").hide();
   });
 </script>
