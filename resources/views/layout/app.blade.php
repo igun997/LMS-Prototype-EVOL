@@ -120,7 +120,7 @@ $.ajaxSetup({
 <script src="{{url("assets/plugins/bsdatetime/js/bootstrap-datetimepicker.min.js")}}"></script>
 <script type="text/javascript">
   $('select').select2({
-    theme:"bootstrap4"
+    
   });
   $.extend(true, $.fn.datetimepicker.defaults, {
   icons: {
