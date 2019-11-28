@@ -133,7 +133,7 @@
         toastr.warning("Data Gagal Di Simpan")
       }
       $("#formSubmit")[0].reset();
-      $("#formSubmit").hide();
+      // $("#formSubmit").hide();
       dtable.ajax.reload();
     }).fail(function(){
       toastr.warning("Anda Terputus Dengan Server");
