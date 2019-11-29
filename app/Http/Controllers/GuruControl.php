@@ -112,6 +112,57 @@ class GuruControl extends Controller
       $matpel = Matpel::where(["nip"=>session()->get("id")])->get();
       return view("guru.ujian")->with(["title"=>"Data Ujian","matpel"=>$matpel]);
     }
+    public function api_ujianedit(Request $req,$id)
+    {
+      $req->validate([
+        "nama_ujian"=>"required",
+        "matpel_id"=>"required",
+        "tgl_dibuka"=>"required",
+        "tgl_ditutup"=>"required",
+        "waktu"=>"required",
+      ]);
+      $d = $req->all();
+      if ($d["pin"] == "") {
+        $d["pin"] = null;
+      }
+      if (count($d["banksoal_id"]) == 0) {
+        return response()->json(["status"=>0]);
+      }else {
+        $bsoal = $d["banksoal_id"];
+        unset($d["banksoal_id"]);
+      }
+      // return response()->json($d);
+      $s = Ujian::where(["id"=>$id])->update($d);
+      if ($s) {
+        $lastid = $id;
+        $newbsoal = [];
+        foreach ($bsoal as $key => $value) {
+            $newbsoal[] = ["ujian_id"=>$lastid,"banksoal_id"=>$value];
+        }
+        UjianItem::where(["ujian_id"=>$id])->delete();
+        $so = UjianItem::insert($newbsoal);
+        if ($so) {
+          return response()->json(["status"=>1]);
+        }else {
+          Ujian::find($lastid)->delete();
+          return response()->json(["status"=>2]);
+        }
+      }else {
+        return response()->json(["status"=>3]);
+      }
+    }
+    public function ujian_edit($id)
+    {
+      $matpel = Matpel::where(["nip"=>session()->get("id")])->get();
+      $selected = Ujian::where(["id"=>$id]);
+      if ($selected->count() > 0) {
+        $s = $selected->first();
+        $s->ujian_items;
+        return view("guru.ujian_edit")->with(["title"=>"Edit Data Ujian","selected"=>$s,"banksoal"=>$s->ujian_items,"matpel"=>$matpel]);
+      }else {
+        return back();
+      }
+    }
     public function api_ujianread()
     {
       $matpel = Matpel::where(["nip"=>session()->get("id")])->get();

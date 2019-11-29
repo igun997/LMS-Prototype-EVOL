@@ -70,6 +70,7 @@ Route::group(['middleware' => ['guru']], function () {
 
   Route::get('/guru/ujian',"GuruControl@ujian")->name("guru.ujian");
   Route::get('/guru/ujian/add',"GuruControl@ujian_add")->name("guru.ujian_add");
+  Route::get('/guru/ujian/edit/{id?}',"GuruControl@ujian_edit")->name("guru.ujian_edit");
   Route::get('/guru/ujian/api/read',"GuruControl@api_ujianread")->name("guru.ujian.api.read");
   Route::post('/guru/ujian/api/edit/{id?}',"GuruControl@api_ujianedit")->name("guru.ujian.api.edit");
   Route::post('/guru/ujian/api/add',"GuruControl@api_ujianadd")->name("guru.ujian.api.add");

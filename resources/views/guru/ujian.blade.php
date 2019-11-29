@@ -54,9 +54,9 @@
         ajax:"{{route("guru.ujian.api.read")}}",
         createdRow:function(r,d,i){
           $("td",r).eq(5).html(d[5]+" Menit");
-          btn = '<button type="button" class="btn btn-primary view m-1" data-id="'+d[8]+'"><i class="fa fa-eye"></i></button>';
+          btn = '<button type="button" class="btn btn-primary view m-1" data-id="'+d[9]+'"><i class="fa fa-eye"></i></button>';
           $("td",r).eq(9).html(btn);
-          btn = '<button type="button" class="btn btn-warning edit m-1" data-id="'+d[8]+'"><i class="fa fa-edit"></i></button>';
+          btn = '<button type="button" class="btn btn-warning edit m-1" data-id="'+d[9]+'"><i class="fa fa-edit"></i></button>';
           $("td",r).eq(9).append(btn);
 
         }
@@ -65,7 +65,17 @@
       event.preventDefault();
       location.href='{{route("guru.ujian_add")}}';
     });
-
+    $("#dtable").on('click', '.view', function(event) {
+      event.preventDefault();
+      console.log("Clicked");
+      console.log($(this).data());
+      location.href = "{{route("guru.ujian_edit")}}/"+$(this).data("id");
+    });
+    $("#dtable").on('click', '.edit', function(event) {
+      event.preventDefault();
+      console.log("ClickedIt");
+      location.href = "{{route("guru.ujian_edit")}}/"+$(this).data("id");
+    });
   });
 </script>
 @endsection
