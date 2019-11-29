@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Sun, 24 Nov 2019 18:36:51 +0000.
+ * Date: Fri, 29 Nov 2019 17:55:05 +0000.
  */
 
 namespace App\Models;
@@ -17,6 +17,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property int $nis
  * @property \Carbon\Carbon $dibuat
  * 
+ * @property \App\Models\Ujian $ujian
  * @property \Illuminate\Database\Eloquent\Collection $jawaban_items
  *
  * @package App\Models
@@ -40,6 +41,11 @@ class Jawaban extends Eloquent
 		'nis',
 		'dibuat'
 	];
+
+	public function ujian()
+	{
+		return $this->belongsTo(\App\Models\Ujian::class);
+	}
 
 	public function jawaban_items()
 	{

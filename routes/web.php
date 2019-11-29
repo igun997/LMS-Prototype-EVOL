@@ -14,6 +14,7 @@
 Route::get('/',function(){
   return redirect(route("login"));
 });
+Route::get('/api/login',"SiswaControl@login")->name("siswa.api.login");
 Route::get('/login',"HomeControl@login")->name("login");
 Route::post('/login',"HomeControl@login_action")->name("login_action");
 Route::get('/logout',function(){
@@ -22,7 +23,9 @@ Route::get('/logout',function(){
 })->name("logout");
 
 Route::group(['middleware' => ['siswa']], function () {
-
+  Route::get('/api/listujian/{nis?}',"SiswaControl@ujian");
+  Route::get('/api/listsoal/{ujian?}',"SiswaControl@soal");
+  Route::post('/api/jawaban',"SiswaControl@jawaban");
 });
 Route::group(['middleware' => ['admin']], function () {
   Route::get('/admin',"AdminControl@index")->name("admin.home");

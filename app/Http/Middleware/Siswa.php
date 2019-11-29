@@ -18,7 +18,7 @@ class Siswa
       $req = $request->all();
       $allow = true;
       if (isset($req["nis"]) && isset($req["password"])) {
-        $x = SiswaModel::where(["nis"=>$req["nis"],"password"=>$req]);
+        $x = SiswaModel::where(["nis"=>$req["nis"],"password"=>$req["password"]]);
         if ($x->count() == 0) {
           $allow = false;
         }
@@ -39,5 +39,6 @@ class Siswa
         }
         return response()->json(["status"=>0,"msg"=>"Akses Ditolak"]);
       }
+      // return response()->json($req);
     }
 }

@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Mon, 25 Nov 2019 16:17:44 +0000.
+ * Date: Fri, 29 Nov 2019 17:54:16 +0000.
  */
 
 namespace App\Models;
@@ -11,7 +11,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
 
 /**
  * Class Ujian
- *
+ * 
  * @property int $id
  * @property int $matpel_id
  * @property string $nama_ujian
@@ -20,8 +20,9 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property int $waktu
  * @property int $pin
  * @property \Carbon\Carbon $dibuat
- *
+ * 
  * @property \App\Models\Matpel $matpel
+ * @property \Illuminate\Database\Eloquent\Collection $jawabans
  * @property \Illuminate\Database\Eloquent\Collection $ujian_items
  *
  * @package App\Models
@@ -56,6 +57,11 @@ class Ujian extends Eloquent
 	public function matpel()
 	{
 		return $this->belongsTo(\App\Models\Matpel::class);
+	}
+
+	public function jawabans()
+	{
+		return $this->hasMany(\App\Models\Jawaban::class);
 	}
 
 	public function ujian_items()

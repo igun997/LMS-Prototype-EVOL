@@ -139,7 +139,7 @@ class GuruControl extends Controller
         foreach ($bsoal as $key => $value) {
             $newbsoal[] = ["ujian_id"=>$lastid,"banksoal_id"=>$value];
         }
-        UjianItem::where(["ujian_id"=>$id])->delete();
+        UjianItem::where(["ujian_id"=>$id])->whereIn("banksoal_id",$bsoal)->delete();
         $so = UjianItem::insert($newbsoal);
         if ($so) {
           return response()->json(["status"=>1]);

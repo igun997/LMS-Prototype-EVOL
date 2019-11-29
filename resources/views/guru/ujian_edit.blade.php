@@ -101,7 +101,9 @@
                     <tr id="tr{{$v->banksoal->id}}">
                       <td>{{$v->banksoal->judul}}</td>
                       <td>{{($v->banksoal->poin == null)?"Diratakan":$v->banksoal->poin}}</td>
-                      <td><button class='btn btn-primary view m-2' data-id='{{$v->banksoal->id}}'><li class='fa fa-eye'></li></button><button class='btn btn-danger del m-2' data-id='{{$v->banksoal->id}}'><li class='fa fa-trash'></li></button></td>
+                      <td><button class='btn btn-primary view m-2' data-id='{{$v->banksoal->id}}'><li class='fa fa-eye'></li></button><button class='btn btn-danger del m-2' data-id='{{$v->banksoal->id}}'><li class='fa fa-trash'></li></button>
+                      <input name="banksoal_id[]" value="{{$v->banksoal->id}}" hidden="">
+                      </td>
                     </tr>
                     @endforeach
                   </tbody>
