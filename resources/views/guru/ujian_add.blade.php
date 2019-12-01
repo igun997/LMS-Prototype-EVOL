@@ -107,7 +107,7 @@
 <script type="text/javascript">
   $(document).ready(function() {
     $(".date").datetimepicker({
-      format:"YYYY-MM-DD HH:MM:SS"
+      format:"YYYY-MM-DD HH:mm:ss"
     });
     // var a = $("#judul_soal").select2("destroy");
     var x = 1;
