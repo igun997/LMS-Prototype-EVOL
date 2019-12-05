@@ -69,7 +69,7 @@
       event.preventDefault();
       console.log("Clicked");
       console.log($(this).data());
-      location.href = "{{route("guru.ujian_edit")}}/"+$(this).data("id");
+      location.href = "{{route("guru.ujian.rinci")}}/"+$(this).data("id");
     });
     $("#dtable").on('click', '.edit', function(event) {
       event.preventDefault();

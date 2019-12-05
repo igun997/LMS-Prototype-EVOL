@@ -1,7 +1,7 @@
 @extends('layout.app')
 @section('title',$title)
 @section('css')
-
+<link rel="stylesheet" href="{{url("assets/plugins/chart.js/Chart.min.css")}}">
 @endsection
 @section('url',session()->get("url"))
 @section('konten')
@@ -30,5 +30,8 @@
 @endsection
 
 @section('js')
+<script src="{{url("assets/plugins/chart.js/Chart.bundle.min.js")}}" charset="utf-8"></script>
+<script type="text/javascript">
 
+</script>
 @endsection

@@ -8,6 +8,7 @@ class GuruControl extends Controller
 {
     public function index()
     {
+      $matpel = Matpel::where(["nip"=>session()->get("id")])->get();
       return view("guru.home")->with(["title"=>"Beranda Guru"]);
     }
     public function upload(Request $request)
@@ -29,6 +30,109 @@ class GuruControl extends Controller
             echo $response;
         }
 
+    }
+    public function ujian_rincian($id)
+    {
+      $c = Ujian::where(["id"=>$id]);
+      if ($c->count() > 0) {
+        $d = $c->first();
+        return view("guru.ujian_view")->with(["title"=>"Rincian UJIAN ".$d->nama_ujian,"data"=>$d]);
+      }else {
+        return back();
+      }
+    }
+    public function api_ujianessay(Request $req,$id)
+    {
+      $req->validate([
+        "nilai"=>"required|max:100|min:1"
+      ]);
+      $cek = Jawaban::where(["id"=>$id]);
+      if ($cek->count() > 0) {
+        if ($req->nilai == 0) {
+          return response()->json(["status"=>0]);
+        }
+        if ($req->nilai > 100) {
+          return response()->json(["status"=>0]);
+        }
+        $up = $cek->update(["essay"=>$req->nilai]);
+        if ($up) {
+          return response()->json(["status"=>1]);
+        }else {
+          return response()->json(["status"=>0]);
+        }
+      }else {
+        return response()->json(["status"=>0]);
+      }
+    }
+    public function api_ujiannilairead($id = null)
+    {
+      $data = [];
+      $data["data"] = [];
+      $d = Jawaban::where(["ujian_id"=>$id]);
+      $nis = [];
+      $counter = [];
+      foreach ($d->get() as $key => $value) {
+        $nis[] = $value->nis;
+        $counter[] = ["nis"=>$value->nis,"id"=>$value->id];
+      }
+      $nis = array_unique($nis);
+      $compact = [];
+      foreach ($nis as $key => $value) {
+        $t = [];
+        foreach ($counter as $k => $v) {
+          if ($value == $v["nis"]) {
+            $t[] = $v["id"];
+          }
+        }
+        $compact[$value] = $t;
+      }
+      $ids = [];
+      foreach ($compact as $key => $value) {
+        $ids[] = $value[(count($value)-1)];
+      }
+      $ned = Jawaban::whereIn("id",$ids);
+      foreach ($ned->get() as $key => $value) {
+        $ujianTotal = $value->ujian->ujian_items->count();
+        $jawabanItem = $value->jawaban_items;
+        $essay = [];
+        foreach ($jawabanItem as $k => $v) {
+          if ($v->ujian_item->banksoal->jenis == "es") {
+            $essay[] = $v->id;
+          }
+        }
+        $btn = "<button class='btn btn-primary koreksi' data-id='$value->id'>Koreksi</button>";
+        $nilai = "<label class='badge badge-danger'>Perlu Koreksi Essay</label>";
+        if (count($essay) == 0) {
+          $tpg = 0;
+          $totalPG = 0;
+          foreach ($jawabanItem as $ke => $nilai_ex) {
+            $totalPG++;
+            if ($nilai_ex->ujian_item->banksoal->jenis == "pg") {
+              if (strtoupper($nilai_ex->jawaban) == strtoupper($nilai_ex->ujian_item->banksoal->jawaban_pg)) {
+                $tpg++;
+              }
+            }
+          }
+          $nilai = ((($tpg/10)/($totalPG/10)))/2;
+        }else {
+          if ($value->essay != null) {
+            $tpg = 0;
+            $totalPG = 0;
+            foreach ($jawabanItem as $ke => $nilai_ex) {
+              $totalPG++;
+              if ($nilai_ex->ujian_item->banksoal->jenis == "pg") {
+                if (strtoupper($nilai_ex->jawaban) == strtoupper($nilai_ex->ujian_item->banksoal->jawaban_pg)) {
+                  $tpg++;
+                }
+              }
+            }
+            $nilai = ((((int)$value->essay) + (($tpg*10)/($totalPG/10)))/2);
+            $btn = "<button class='btn btn-primary' disabled>Koreksi</button>";
+          }
+        }
+        $data["data"][] = [($key+1),$value->nis,$value->siswa->nama,$value->siswa->kela->kela->nama."_".$value->siswa->kela->nama,$nilai,date("d-m-Y",strtotime($value->dibuat)),$btn];
+      }
+      return response()->json($data);
     }
     public function banksoal()
     {

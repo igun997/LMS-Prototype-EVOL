@@ -10,6 +10,7 @@ class AdminControl extends Controller
     {
       return view("admin.home")->with(["title"=>"Administrator"]);
     }
+
     public function api_homeread()
     {
       $data = [];
@@ -25,6 +26,14 @@ class AdminControl extends Controller
         $data["data"][] = [($key+1),$nama ,$value->matpel->guru->nama,date("d-m-Y H:i:s",strtotime($value->dibuat))];
       }
       return response()->json($data);
+    }
+    public function nilai()
+    {
+      return view("admin.nilai")->with(["title"=>"Data Nilai"]);
+    }
+    public function api_nilairead($id = null)
+    {
+
     }
     public function rombel()
     {
