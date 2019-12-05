@@ -6,7 +6,11 @@
 
 @section('url',"")
 @section('js')
-
+<script type="text/javascript">
+  $("#dtable").DataTable({
+    ajax:"{{route("login.api.read")}}"
+  });
+</script>
 @endsection
 @section('konten')
 <div class="row">
@@ -48,6 +52,28 @@
           </div>
         </form>
         </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header">
+        <h5 class="m-0">Data Ujian Terupload</h5>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+      <table class="table table-striped" id="dtable">
+        <thead>
+          <th>No</th>
+          <th>Matpel</th>
+          <th>Guru</th>
+          <th>Tgl</th>
+        </thead>
+        <tbody>
+
+        </tbody>
+      </table>
+    </div>
       </div>
     </div>
   </div>
