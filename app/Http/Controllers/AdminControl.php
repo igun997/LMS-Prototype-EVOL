@@ -10,6 +10,14 @@ class AdminControl extends Controller
     {
       return view("admin.home")->with(["title"=>"Administrator"]);
     }
+    public function nilai()
+    {
+      return view("admin.nilai")->with(["title"=>"Data Nilai"]);
+    }
+    public function api_nilairead($id = null)
+    {
+    
+    }
     public function rombel()
     {
       return view("admin.rombel")->with(["title"=>"Data Rombongan Belajar"]);

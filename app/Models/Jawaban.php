@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Fri, 29 Nov 2019 17:55:05 +0000.
+ * Date: Thu, 05 Dec 2019 11:21:01 +0000.
  */
 
 namespace App\Models;
@@ -14,9 +14,11 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * 
  * @property int $id
  * @property int $ujian_id
- * @property int $nis
+ * @property string $nis
  * @property \Carbon\Carbon $dibuat
+ * @property string $essay
  * 
+ * @property \App\Models\Siswa $siswa
  * @property \App\Models\Ujian $ujian
  * @property \Illuminate\Database\Eloquent\Collection $jawaban_items
  *
@@ -28,8 +30,7 @@ class Jawaban extends Eloquent
 	public $timestamps = false;
 
 	protected $casts = [
-		'ujian_id' => 'int',
-		'nis' => 'int'
+		'ujian_id' => 'int'
 	];
 
 	protected $dates = [
@@ -39,8 +40,14 @@ class Jawaban extends Eloquent
 	protected $fillable = [
 		'ujian_id',
 		'nis',
-		'dibuat'
+		'dibuat',
+		'essay'
 	];
+
+	public function siswa()
+	{
+		return $this->belongsTo(\App\Models\Siswa::class, 'nis');
+	}
 
 	public function ujian()
 	{

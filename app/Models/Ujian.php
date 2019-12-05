@@ -11,7 +11,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
 
 /**
  * Class Ujian
- * 
+ *
  * @property int $id
  * @property int $matpel_id
  * @property string $nama_ujian
@@ -20,7 +20,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property int $waktu
  * @property int $pin
  * @property \Carbon\Carbon $dibuat
- * 
+ *
  * @property \App\Models\Matpel $matpel
  * @property \Illuminate\Database\Eloquent\Collection $jawabans
  * @property \Illuminate\Database\Eloquent\Collection $ujian_items

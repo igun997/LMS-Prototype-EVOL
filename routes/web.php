@@ -29,6 +29,9 @@ Route::group(['middleware' => ['siswa']], function () {
 });
 Route::group(['middleware' => ['admin']], function () {
   Route::get('/admin',"AdminControl@index")->name("admin.home");
+  Route::get('/admin/nilai',"AdminControl@nilai")->name("admin.nilai");
+
+  Route::get('/admin/rombel',"AdminControl@rombel")->name("admin.rombel");
 
   Route::get('/admin/rombel',"AdminControl@rombel")->name("admin.rombel");
   Route::get('/admin/rombel/api/read',"AdminControl@api_rombelread")->name("admin.rombel.api.read");
@@ -63,6 +66,9 @@ Route::group(['middleware' => ['admin']], function () {
 Route::group(['middleware' => ['guru']], function () {
   Route::get('/guru',"GuruControl@index")->name("guru.home");
 
+  Route::get('/guru/ujian/rinci/{id?}',"GuruControl@ujian_rincian")->name("guru.ujian.rinci");
+  Route::get('/guru/api/rinci/read/{id?}',"GuruControl@api_ujiannilairead")->name("guru.ujian.haisl.api.read");
+  Route::post('/guru/api/rinci/update/{id?}',"GuruControl@api_ujianessay")->name("guru.ujian.hasil.api.update");
 
   Route::get('/guru/banksoal',"GuruControl@banksoal")->name("guru.banksoal");
   Route::get('/guru/banksoal/api/read',"GuruControl@api_banksoalread")->name("guru.banksoal.api.read");
