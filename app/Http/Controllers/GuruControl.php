@@ -114,7 +114,7 @@ class GuruControl extends Controller
               }
             }
           }
-          $nilai = (($tpg*10)/($totalPG/10));
+          $nilai = number_format((($tpg*10)/($totalPG/10)));
         }else {
           if ($value->essay != null) {
             $tpg = 0;
@@ -127,7 +127,7 @@ class GuruControl extends Controller
                 }
               }
             }
-            $nilai = ((((int)$value->essay) + (($tpg*10)/($totalPG/10)))/2);
+            $nilai = number_format((((int)$value->essay) + (($tpg*10)/($totalPG/10)))/2);
             $btn = "<button class='btn btn-primary' disabled>Koreksi</button>";
           }
         }
