@@ -103,6 +103,7 @@ class GuruControl extends Controller
         $btn = "<button class='btn btn-primary koreksi' data-id='$value->id'>Koreksi</button>";
         $nilai = "<label class='badge badge-danger'>Perlu Koreksi Essay</label>";
         if (count($essay) == 0) {
+          $btn = "<button class='btn btn-primary' disabled>Koreksi</button>";
           $tpg = 0;
           $totalPG = 0;
           foreach ($jawabanItem as $ke => $nilai_ex) {
@@ -113,7 +114,7 @@ class GuruControl extends Controller
               }
             }
           }
-          $nilai = ((($tpg/10)/($totalPG/10)))/2;
+          $nilai = (($tpg*10)/($totalPG/10));
         }else {
           if ($value->essay != null) {
             $tpg = 0;
