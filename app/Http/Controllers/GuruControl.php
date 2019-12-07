@@ -117,7 +117,7 @@ class GuruControl extends Controller
           if ($totalPG > 0 & $tpg > 0) {
             $nilai = (($tpg*10)/($totalPG/10));
           }else {
-            $nilai = "Perlu Dilakukan Ujian Susulan";
+            $nilai = "<label class='badge badge-danger'>Perlu Dilakukan Ujian Susulan</label>";
           }
         }else {
           if ($value->essay != null) {
