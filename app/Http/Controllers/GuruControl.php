@@ -114,7 +114,11 @@ class GuruControl extends Controller
               }
             }
           }
-          $nilai = number_format((($tpg*10)/($totalPG/10)));
+          if ($totalPG > 0 & $tpg > 0) {
+            $nilai = (($tpg*10)/($totalPG/10));
+          }else {
+            $nilai = "Perlu Dilakukan Ujian Susulan";
+          }
         }else {
           if ($value->essay != null) {
             $tpg = 0;
