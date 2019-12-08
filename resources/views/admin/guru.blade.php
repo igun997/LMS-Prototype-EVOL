@@ -12,43 +12,46 @@
         <h5 class="m-0">{{$title}}</h5>
       </div>
       <div class="card-body">
+        <div class="row">
         <div class="col-12">
           <button type="button" id="form" class="btn btn-default m-1">
             <i class="fa fa-plus"></i> Tambah Guru
           </button>
-          <div class="col-12">
-            <form class="" action="" id="formSubmit" method="post">
-              <div class="form-group">
-                <label>NIP</label>
-                <input type="text" class="form-control" name="nip" placeholder="" required>
-              </div>
-              <div class="form-group">
-                <label>Nama</label>
-                <input type="text" class="form-control" name="nama" placeholder="" required>
-              </div>
-              <div class="form-group">
-                <label>Alamat</label>
-                <textarea name="alamat" class="form-control" rows="8" cols="80"></textarea>
-              </div>
-              <div class="form-group">
-                <label>No HP</label>
-                <input type="text" class="form-control" name="no_hp" placeholder="" required>
-              </div>
-              <div class="form-group">
-                <label>Email</label>
-                <input type="text" class="form-control" name="email" placeholder="" required>
-              </div>
-              <div class="form-group">
-                <label>Password</label>
-                <input type="password" class="form-control" name="password" placeholder="" required>
-              </div>
-              <div class="form-group">
-                <button type="submit" class="btn btn-success">
-                  Simpan
-                </button>
-              </div>
-            </form>
-          </div>
+        </div>
+        <div class="col-12">
+          <form class="" action="" id="formSubmit" method="post">
+            <div class="form-group">
+              <label>NIP</label>
+              <input type="text" class="form-control" name="nip" placeholder="" required>
+            </div>
+            <div class="form-group">
+              <label>Nama</label>
+              <input type="text" class="form-control" name="nama" placeholder="" required>
+            </div>
+            <div class="form-group">
+              <label>Alamat</label>
+              <textarea name="alamat" class="form-control" rows="8" cols="80"></textarea>
+            </div>
+            <div class="form-group">
+              <label>No HP</label>
+              <input type="text" class="form-control" name="no_hp" placeholder="" required>
+            </div>
+            <div class="form-group">
+              <label>Email</label>
+              <input type="text" class="form-control" name="email" placeholder="" required>
+            </div>
+            <div class="form-group">
+              <label>Password</label>
+              <input type="password" class="form-control" name="password" placeholder="" required>
+            </div>
+            <div class="form-group">
+              <button type="submit" class="btn btn-success">
+                Simpan
+              </button>
+            </div>
+          </form>
+        </div>
+        <div class="col-md-12">
           <div class="table-responsive">
             <table class="table table-bordered" id="dtable">
               <thead>
@@ -67,6 +70,55 @@
             </table>
           </div>
         </div>
+        <div class="col-md-12 mt-10">
+          <div class="table-responsive ">
+            <table class="table table-bordered" id="dtable1">
+              <thead>
+                <th>No</th>
+                <th>Nama Matpel</th>
+                <th>Kelas</th>
+                <th>Total Ujian</th>
+                <th>Opsi</th>
+              </thead>
+              <tbody>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="col-md-12 mt-10">
+          <div class="table-responsive ">
+            <table class="table table-bordered" id="dtable2">
+              <thead>
+                <th>No</th>
+                <th>Ujian</th>
+                <th>Opsi</th>
+              </thead>
+              <tbody>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="col-md-12 mt-10">
+          <div class="table-responsive ">
+            <table class="table table-bordered" id="dtable3">
+              <thead>
+                <th>No</th>
+                <th>NIS</th>
+                <th>Nama Siswa</th>
+                <th>Kelas</th>
+                <th>Nilai</th>
+                <th>Dibuat</th>
+                <th>Opsi</th>
+              </thead>
+              <tbody>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+        </div>
       </div>
     </div>
   </div>
@@ -78,8 +130,31 @@
   var dtable = $("#dtable").DataTable({
     ajax:"{{route("admin.guru.api.read")}}",
     createdRow:function(r,d,i){
-      btn = '<button type="button" class="btn btn-warning ubah" data-id="'+d[1]+'">Ubah</button>';
+      btn = '<button type="button" class="btn btn-warning ubah m-1" data-id="'+d[1]+'">Ubah</button>';
+      btn = btn+'<button type="button" class="btn btn-primary matpel m-1" data-id="'+d[1]+'">Matpel</button>';
       $("td",r).eq(7).html(btn);
+    }
+  });
+
+  var dtable1 = $("#dtable1").DataTable({
+    ajax:null,
+    createdRow:function(r,d,i){
+      btn = '<button type="button" class="btn btn-warning ujian m-1" data-id="'+d[4]+'">List Ujian</button>';
+      $("td",r).eq(4).html(btn);
+    }
+  });
+  var dtable2 = $("#dtable2").DataTable({
+    ajax:null,
+    createdRow:function(r,d,i){
+      btn = '<button type="button" class="btn btn-primary siswa" data-id="'+d[2]+'">List Siswa</button>';
+      $("td",r).eq(2).html(btn);
+    }
+  });
+  var dtable3 = $("#dtable3").DataTable({
+    ajax:null,
+    createdRow:function(r,d,i){
+      // btn = '<button type="button" class="btn btn-warning ujian m-1" data-id="'+d[4]+'">List Ujian</button>';
+      // $("td",r).eq(4).html(btn);
     }
   });
   var toggle = true;
@@ -141,6 +216,60 @@
     url = null;
     $("#formSubmit").html(temp);
     $("#formSubmit").hide();
+  });
+  $("#dtable").on('click', '.matpel', function(event) {
+    event.preventDefault();
+    id = $(this).data("id");
+    console.log(id);
+    url = "{{route("admin.listmatpel.api.ujian")}}/"+id;
+    console.log(url);
+    dtable1.ajax.url(url).load();
+  });
+  $("#dtable1").on('click', '.ujian', function(event) {
+    event.preventDefault();
+    id = $(this).data("id");
+    console.log(id);
+    url = "{{route("admin.listmatpel.api.listujian")}}/"+id;
+    console.log(url);
+    dtable2.ajax.url(url).load();
+  });
+  $("#dtable2").on('click', '.siswa', function(event) {
+    event.preventDefault();
+    id = $(this).data("id");
+    console.log(id);
+    url = "{{route("admin.listmatpel.api.listujiandetail")}}/"+id;
+    console.log(url);
+    dtable3.ajax.url(url).load();
+  });
+  $("#dtable3").on('click', '.resetessay', function(event) {
+    event.preventDefault();
+    c = confirm("Apakah Ada Yakin ? ");
+    if (c) {
+      url = "{{route("admin.ressessay")}}/"+$(this).data("id");
+      $.get(url,function(d){
+        if (d.status == 1) {
+          toastr.success("Berhasil Di Reset");
+          dtable3.ajax.reload();
+        }else {
+          toastr.warning("Gagal Di Reset");
+        }
+      });
+    }
+  });
+  $("#dtable3").on('click', '.resetjawaban', function(event) {
+    event.preventDefault();
+    c = confirm("Apakah Ada Yakin ? ");
+    if (c) {
+      url = "{{route("admin.ressjawaban")}}/"+$(this).data("id");
+      $.get(url,function(d){
+      if (d.status == 1) {
+        toastr.success("Berhasil Di Reset");
+        dtable3.ajax.reload();
+      }else {
+        toastr.warning("Gagal Di Reset");
+      }
+    });
+    }
   });
 </script>
 @endsection

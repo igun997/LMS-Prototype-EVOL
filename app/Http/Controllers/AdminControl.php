@@ -335,4 +335,149 @@ class AdminControl extends Controller
         return response()->json(["status"=>0]);
       }
     }
+    public function listmatpel($id)
+    {
+      return view("admin.matpel_detail")->with(["title"=>"Detail Ujian","id"=>$id]);
+    }
+    public function api_readujian($id)
+    {
+      $data = [];
+      $data["data"] = [];
+      $get = Matpel::where(["nip"=>$id]);
+      foreach ($get->get() as $key => $value) {
+        $kelas = $value->kela->nama;
+        if (isset($value->kela->kela->nama)) {
+          $kelas = $value->kela->kela->nama."_".$value->kela->nama;
+        }
+        $data["data"][] = [($key+1),$value->nama,$kelas,$value->ujians->count(),$value->id];
+      }
+      return response()->json($data);
+    }
+    public function api_readujiandetail($id)
+    {
+      $data = [];
+      $data["data"] = [];
+      $get = Matpel::where(["id"=>$id]);
+      if ($get->count() > 0) {
+        $row = $get->first();
+        foreach ($row->ujians as $key => $value) {
+          $data["data"][] = [($key+1),$value->nama_ujian,$value->id];
+        }
+        return response()->json($data);
+      }else {
+        return response()->json($data);
+      }
+    }
+    public function api_readujiandetaildetail($id)
+    {
+      $data = [];
+      $data["data"] = [];
+      $d = Jawaban::where(["ujian_id"=>$id]);
+      $nis = [];
+      $counter = [];
+      foreach ($d->get() as $key => $value) {
+        $nis[] = $value->nis;
+        $counter[] = ["nis"=>$value->nis,"id"=>$value->id];
+      }
+      $nis = array_unique($nis);
+      $compact = [];
+      foreach ($nis as $key => $value) {
+        $t = [];
+        foreach ($counter as $k => $v) {
+          if ($value == $v["nis"]) {
+            $t[] = $v["id"];
+          }
+        }
+        $compact[$value] = $t;
+      }
+      $ids = [];
+      foreach ($compact as $key => $value) {
+        $ids[] = $value[(count($value)-1)];
+      }
+      $ned = Jawaban::whereIn("id",$ids);
+      foreach ($ned->get() as $key => $value) {
+        $ujianTotal = $value->ujian->ujian_items->count();
+        $jawabanItem = $value->jawaban_items;
+        $essay = [];
+        foreach ($jawabanItem as $k => $v) {
+          if ($v->ujian_item->banksoal->jenis == "es") {
+            $essay[] = $v->id;
+          }
+        }
+        $btn = "<button class='btn btn-primary resetessay m-1' data-id='$value->id'>Reset Essay</button>";
+        $btn = $btn."<button class='btn btn-primary resetjawaban m-1' data-id='$value->id'>Reset Jawaban</button>";
+        $nilai = null;
+        if (count($essay) == 0) {
+          $btn = "<button class='btn btn-primary' disabled>Koreksi</button>";
+          $tpg = 0;
+          $totalPG = 0;
+          foreach ($jawabanItem as $ke => $nilai_ex) {
+            $totalPG++;
+            if ($nilai_ex->ujian_item->banksoal->jenis == "pg") {
+              if (strtoupper($nilai_ex->jawaban) == strtoupper($nilai_ex->ujian_item->banksoal->jawaban_pg)) {
+                $tpg++;
+              }
+            }
+          }
+          if ($totalPG > 0 & $tpg > 0) {
+            $nilai = "<span class='badge badge-primary m-1'>".number_format(($tpg*10)/($totalPG/10))."</span> <span class='badge badge-danger m-1'>".number_format(($tpg*10)/($totalPG/10))."</span>";
+          }else {
+            $nilai = "<label class='badge badge-danger'>Perlu Dilakukan Ujian Susulan</label>";
+          }
+        }else {
+          if ($value->essay != null) {
+            $tpg = 0;
+            $totalPG = 0;
+            foreach ($jawabanItem as $ke => $nilai_ex) {
+              $totalPG++;
+              if ($nilai_ex->ujian_item->banksoal->jenis == "pg") {
+                if (strtoupper($nilai_ex->jawaban) == strtoupper($nilai_ex->ujian_item->banksoal->jawaban_pg)) {
+                  $tpg++;
+                }
+              }
+            }
+            $nilai = "<span class='badge badge-primary m-1'>".number_format((((int)$value->essay) + (($tpg*10)/($totalPG/10)))/2)."</span> <span class='badge badge-danger m-1'>".number_format(($tpg*10)/($totalPG/10))."</span> <span class='badge badge-success m-1'>".number_format($value->essay)."</span>";
+          }else {
+            $tpg = 0;
+            $totalPG = 0;
+            foreach ($jawabanItem as $ke => $nilai_ex) {
+              $totalPG++;
+              if ($nilai_ex->ujian_item->banksoal->jenis == "pg") {
+                if (strtoupper($nilai_ex->jawaban) == strtoupper($nilai_ex->ujian_item->banksoal->jawaban_pg)) {
+                  $tpg++;
+                }
+              }
+            }
+            $nilai = "<span class='badge badge-primary m-1'>0</span> <span class='badge badge-danger m-1'>".number_format(($tpg*10)/($totalPG/10))."</span> <span class='badge badge-success m-1'>0</span>";
+          }
+        }
+        $data["data"][] = [($key+1),$value->nis,$value->siswa->nama,$value->siswa->kela->kela->nama."_".$value->siswa->kela->nama,$nilai,date("d-m-Y",strtotime($value->dibuat)),$btn];
+      }
+      return response()->json($data);
+
+    }
+    public function ressjawaban($id)
+    {
+      $c = Jawaban::where(["id"=>$id]);
+      if ($c->count() > 0) {
+        $d = JawabanItem::where(["jawaban_id"=>$id])->delete();
+        if ($d) {
+          return ["status"=>1];
+        }else {
+          return ["status"=>0];
+        }
+      }else {
+        return ["status"=>0];
+      }
+    }
+    public function ressessay($id)
+    {
+      $c = Jawaban::where(["id"=>$id]);
+      $up = $c->update(["essay"=>null]);
+      if ($up) {
+        return ["status"=>1];
+      }else {
+        return ["status"=>0];
+      }
+    }
 }

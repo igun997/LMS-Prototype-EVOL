@@ -52,8 +52,7 @@
               </div>
             </form>
           </div>
-          <div class="col-md-12">
-            <div class="table-responsive">
+          <div class="table-responsive">
             <table class="table table-bordered" id="dtable">
               <thead>
                 <th>No</th>
@@ -67,7 +66,6 @@
               </tbody>
             </table>
           </div>
-          </div>
         </div>
       </div>
     </div>
@@ -80,7 +78,6 @@
   var dtable = $("#dtable").DataTable({
     ajax:"{{route("admin.matpel.api.read")}}",
     createdRow:function(r,d,i){
-      // admin.listmatpel
       btn = '<button type="button" class="btn btn-warning ubah" data-id="'+d[4]+'">Ubah</button>';
       $("td",r).eq(4).html(btn);
     }
@@ -142,6 +139,5 @@
     // $("#formSubmit").html(temp);
     // $("#formSubmit").hide();
   });
-
 </script>
 @endsection

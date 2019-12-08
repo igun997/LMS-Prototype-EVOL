@@ -33,6 +33,12 @@ Route::group(['middleware' => ['admin']], function () {
   Route::get('/admin/nilai',"AdminControl@nilai")->name("admin.nilai");
 
   Route::get('/admin/rombel',"AdminControl@rombel")->name("admin.rombel");
+  Route::get('/admin/listmatpel/{id}',"AdminControl@listmatpel")->name("admin.listmatpel");
+  Route::get('/admin/api/listmatpel/{id?}',"AdminControl@api_readujian")->name("admin.listmatpel.api.ujian");
+  Route::get('/admin/api/listujian/{id?}',"AdminControl@api_readujiandetail")->name("admin.listmatpel.api.listujian");
+  Route::get('/admin/api/listujiandetail/{id?}',"AdminControl@api_readujiandetaildetail")->name("admin.listmatpel.api.listujiandetail");
+  Route::get('/admin/api/ressessay/{id?}',"AdminControl@ressessay")->name("admin.ressessay");
+  Route::get('/admin/api/ressjawaban/{id?}',"AdminControl@ressjawaban")->name("admin.ressjawaban");
 
   Route::get('/admin/rombel',"AdminControl@rombel")->name("admin.rombel");
   Route::get('/admin/rombel/api/read',"AdminControl@api_rombelread")->name("admin.rombel.api.read");
