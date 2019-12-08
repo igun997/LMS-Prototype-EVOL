@@ -5,9 +5,11 @@
 @endsection
 @section('url',session()->get("url"))
 @section('konten')
+<div class="row">
+  
+</div>
 
 @endsection
 
 @section('js')
-
 @endsection

@@ -21,6 +21,7 @@ Route::get('/logout',function(){
   session()->flush();
   return redirect(route("login"))->with(["msg"=>"Berhasil Logout"]);
 })->name("logout");
+Route::get('/api/ujianread',"AdminControl@api_homeread")->name("login.api.read");
 
 Route::group(['middleware' => ['siswa']], function () {
   Route::get('/api/listujian/{nis?}',"SiswaControl@ujian");

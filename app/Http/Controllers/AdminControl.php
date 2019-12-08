@@ -10,13 +10,30 @@ class AdminControl extends Controller
     {
       return view("admin.home")->with(["title"=>"Administrator"]);
     }
+
+    public function api_homeread()
+    {
+      $data = [];
+      $data["data"] = [];
+      $all = Ujian::orderBy("dibuat","desc")->get();
+      foreach ($all as $key => $value) {
+        $nama = $value->matpel->nama;
+        if (isset($value->matpel->kela->kela->id)) {
+          $nama = $nama." (".$value->matpel->kela->kela->nama."_".$value->matpel->kela->nama.")";
+        }else {
+          $nama = $nama." (".$value->matpel->kela->nama.")";
+        }
+        $data["data"][] = [($key+1),$nama ,$value->matpel->guru->nama,date("d-m-Y H:i:s",strtotime($value->dibuat))];
+      }
+      return response()->json($data);
+    }
     public function nilai()
     {
       return view("admin.nilai")->with(["title"=>"Data Nilai"]);
     }
     public function api_nilairead($id = null)
     {
-    
+
     }
     public function rombel()
     {
