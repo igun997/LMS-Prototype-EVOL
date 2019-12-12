@@ -4,13 +4,20 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\{Admin,Banksoal,Guru,Jawaban,JawabanItem,Kela,Matpel,Rombel,Siswa,Ujian,UjianItem};
+use App\Exports\{UnduhJawaban};
+use Excel;
 class AdminControl extends Controller
 {
     public function index()
     {
       return view("admin.home")->with(["title"=>"Administrator"]);
     }
+    public function unduh($id)
+    {
 
+      
+      return Excel::download(new UnduhJawaban($id), 'unduh.xlsx');
+    }
     public function api_homeread()
     {
       $data = [];

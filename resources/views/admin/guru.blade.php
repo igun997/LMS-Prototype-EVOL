@@ -146,7 +146,8 @@
   var dtable2 = $("#dtable2").DataTable({
     ajax:null,
     createdRow:function(r,d,i){
-      btn = '<button type="button" class="btn btn-primary siswa" data-id="'+d[2]+'">List Siswa</button>';
+      btn = '<button type="button" class="btn btn-primary siswa m-1" data-id="'+d[2]+'">List Siswa</button>';
+      btn = btn+'<a href="{{route("admin.export")}}/'+d[2]+'" class="btn btn-primary m-1">Unduh Jawaban Siswa</button>';
       $("td",r).eq(2).html(btn);
     }
   });

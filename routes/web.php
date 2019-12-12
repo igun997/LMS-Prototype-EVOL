@@ -30,6 +30,7 @@ Route::group(['middleware' => ['siswa']], function () {
 });
 Route::group(['middleware' => ['admin']], function () {
   Route::get('/admin',"AdminControl@index")->name("admin.home");
+  Route::get('/admin/export/{id?}',"AdminControl@unduh")->name("admin.export");
   Route::get('/admin/nilai',"AdminControl@nilai")->name("admin.nilai");
 
   Route::get('/admin/rombel',"AdminControl@rombel")->name("admin.rombel");
