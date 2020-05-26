@@ -66,7 +66,7 @@ class SiswaControl extends Controller
             $si = [];
             foreach ($data->ujian_items as $key => $value) {
                 $soal_list = $value->banksoal->soal;
-                shuffle($soal_list);
+
                 if ($value->banksoal->jenis == "pg") {
                     $si[] = ["id" => $value->id, "tipe" => $value->banksoal->jenis, "soal" => $soal_list, "pg_a" => $value->banksoal->pg_a, "pg_b" => $value->banksoal->pg_b, "pg_c" => $value->banksoal->pg_c, "pg_d" => $value->banksoal->pg_d, "pg_e" => $value->banksoal->pg_e];
                 } else {
@@ -74,6 +74,7 @@ class SiswaControl extends Controller
                     $si[] = ["id" => $value->id, "tipe" => $value->banksoal->jenis, "soal" => $soal_list];
                 }
             }
+            shuffle($si);
             $soal[$data->id] = ["matpel" => $data->matpel->nama, "buka" => date("Y-m-d H:i:s", strtotime($data->tgl_dibuka)), "ditutup" => date("Y-m-d H:i:s", strtotime($data->tgl_ditutup)), "nama_ujian" => $data->nama_ujian, "waktu" => $data->waktu, "pin" => $data->pin, "soal" => $si];
             return response()->json(["status" => 1, "data" => $soal]);
         } else {
