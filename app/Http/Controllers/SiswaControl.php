@@ -65,7 +65,7 @@ class SiswaControl extends Controller
             $data = $ujian->first();
             $si = [];
             foreach ($data->ujian_items as $key => $value) {
-                $soal_list = (array) $value->banksoal->soal;
+                $soal_list = $value->banksoal->soal;
                 shuffle($soal_list);
                 if ($value->banksoal->jenis == "pg") {
                     $si[] = ["id" => $value->id, "tipe" => $value->banksoal->jenis, "soal" => $soal_list, "pg_a" => $value->banksoal->pg_a, "pg_b" => $value->banksoal->pg_b, "pg_c" => $value->banksoal->pg_c, "pg_d" => $value->banksoal->pg_d, "pg_e" => $value->banksoal->pg_e];
