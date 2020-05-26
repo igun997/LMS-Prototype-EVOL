@@ -165,7 +165,7 @@ class GuruControl extends Controller
       foreach ($matpel as $key => $value) {
         $m[] = $value->id;
       }
-      $d = Banksoal::whereIn("matpel_id",$m)->order_by("dibuat","DESC")->get();
+      $d = Banksoal::whereIn("matpel_id",$m)->orderBy("dibuat","DESC")->get();
       foreach ($d as $key => $value) {
         $jawaban = null;
         if ($value->jenis == "pg") {
