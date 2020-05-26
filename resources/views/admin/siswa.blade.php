@@ -36,7 +36,7 @@
               </div>
               <div class="form-group">
                 <label>Foto</label>
-                <input type="file" class="form-control-file" name="foto" placeholder="" required>
+                <input type="file" class="form-control-file" name="foto" placeholder="">
               </div>
               <div class="form-group">
                 <label>Password</label>
