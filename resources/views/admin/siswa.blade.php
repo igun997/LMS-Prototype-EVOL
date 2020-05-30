@@ -70,7 +70,7 @@
                                     </button>
                                 </div>
                             </form>
-                            <form class="" action="" id="bulk_excel" method="post" enctype="multipart/form-data">
+                            <form class="" action="" id="bulk_excel" onsubmit="return false" method="post" enctype="multipart/form-data">
                                 <div class="form-group">
                                     <label>File</label>
                                     <input type="file" class="form-control-file" name="excel" placeholder="">
@@ -123,10 +123,12 @@
             }
         });
         var toggle = true;
+        var toggle1 = true;
         temp = $("#formSubmit").html();
         temp1 = $("#bulk_excel").html();
         console.log(temp);
         $("#formSubmit").hide();
+        $("#bulk_excel").hide();
         $("#form").on('click', function (event) {
             event.preventDefault();
             if (toggle) {
@@ -205,12 +207,12 @@
         });
 
         $("#formPassword").on("click", function () {
-            if (toggle) {
+            if (toggle1) {
                 $("#bulk_excel").show();
-                toggle = false;
+                toggle1 = false;
             } else {
                 $("#bulk_excel").hide();
-                toggle = true;
+                toggle1 = true;
             }
         });
         $("#bulk_excel").on("submit", function () {
