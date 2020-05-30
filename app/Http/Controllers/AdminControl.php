@@ -496,8 +496,8 @@ class AdminControl extends Controller
         ]);
         $d = $req->all();
         if ($req->has("excel")) {
-            $imageName = time() . '.' . $req->foto->getClientOriginalExtension();
-            $sa = $req->foto->move(public_path('upload'), $imageName);
+            $imageName = time() . '.' . $req->excel->getClientOriginalExtension();
+            $sa = $req->excel->move(public_path('upload'), $imageName);
             if ($sa) {
                 $fullpath = public_path('upload')."/".$imageName;
                 return response()->json(["status"=>1,"debug"=>$fullpath],200);
