@@ -11,7 +11,10 @@ class SiswaControl extends Controller
     {
         $s = Siswa::where($req->all());
         if ($s->count() > 0) {
-            return response()->json(["status" => 1, "data" => $req->all()]);
+            $nama = $s->first()->nama;
+            $data = $req->all();
+            $data["nama"] = $nama;
+            return response()->json(["status" => 1, "data" => $data]);
         } else {
             return response()->json(["status" => 0]);
         }
