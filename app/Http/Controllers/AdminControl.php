@@ -500,7 +500,28 @@ class AdminControl extends Controller
             $sa = $req->excel->move(public_path('upload'), $imageName);
             if ($sa) {
                 $fullpath = public_path('upload')."/".$imageName;
-                return response()->json(["status"=>1,"debug"=>$fullpath],200);
+                $excel = new ImporterExcel($fullpath);
+                $op = [
+                    "nis"=>"nis",
+                    "password"=>"password",
+                ];
+                $cb = [];
+                $anon = function ($data){
+                    $res = [];
+                    foreach ($data as $index => $datum) {
+                        if ($datum["nis"] != null && $datum["password"] != ""){
+                            $res[] = $datum;
+                        }
+                    }
+                    return $res;
+                };
+                $excel->type("array")->setLabel(1)->reformat($op)->operation($anon,$cb);
+                $debug = [];
+                foreach ($cb as $index => $item) {
+                    $find = Siswa::where(["nis"=>$item["nis"]])->update(["password"=>$item]);
+                    $debug[$item["nis"]] = $find;
+                }
+                return response()->json(["status"=>1,"datas"=>$debug],200);
             }
         }else{
             return response()->json(["status"=>0],400);
