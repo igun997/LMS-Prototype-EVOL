@@ -518,7 +518,7 @@ class AdminControl extends Controller
                 $excel->type("array")->setLabel(1)->reformat($op)->operation($anon,$cb);
                 $debug = [];
                 foreach ($cb as $index => $item) {
-                    $find = Siswa::where(["nis"=>$item["nis"]])->update(["password"=>$item]);
+                    $find = Siswa::where(["nis"=>$item["nis"]])->update(["password"=>$item["password"]]);
                     $debug[$item["nis"]] = $find;
                 }
                 return response()->json(["status"=>1,"datas"=>$debug],200);
