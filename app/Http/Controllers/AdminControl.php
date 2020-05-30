@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\{Admin,Banksoal,Guru,Jawaban,JawabanItem,Kela,Matpel,Rombel,Siswa,Ujian,UjianItem};
 use App\Exports\{UnduhJawaban};
 use Excel;
+use Igun997\Utility\Debug;
+use Igun997\Utility\Excel as ImporterExcel;
 class AdminControl extends Controller
 {
     public function index()
@@ -15,7 +17,7 @@ class AdminControl extends Controller
     public function unduh($id)
     {
 
-      
+
       return Excel::download(new UnduhJawaban($id), 'unduh.xlsx');
     }
     public function api_homeread()
@@ -486,5 +488,22 @@ class AdminControl extends Controller
       }else {
         return ["status"=>0];
       }
+    }
+
+    public function api_siswabulkpassword(Request $req){
+        $req->validate([
+            "excel"=>"mimes:xlsx|max:10000"
+        ]);
+        $d = $req->all();
+        if ($req->has("excel")) {
+            $imageName = time() . '.' . $req->foto->getClientOriginalExtension();
+            $sa = $req->foto->move(public_path('upload'), $imageName);
+            if ($sa) {
+                $fullpath = public_path('upload')."/".$imageName;
+                return response()->json(["status"=>1,"debug"=>$fullpath],200);
+            }
+        }else{
+            return response()->json(["status"=>0],400);
+        }
     }
 }
