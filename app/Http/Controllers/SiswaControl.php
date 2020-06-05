@@ -40,6 +40,10 @@ class SiswaControl extends Controller
             }
             $ujian = Ujian::whereIn("matpel_id", $getInMatpel)->get();
             foreach ($ujian as $key => $value) {
+                $tutup = strtotime($value->tgl_ditutup);
+                if($tutup < time()){
+                    continue;
+                }
                 $sync = "Belum";
                 $tutup = date("d-m-Y H:i:s", strtotime($value->tgl_ditutup));
                 $isSync = Jawaban::where(["ujian_id" => $value->id, "nis" => $nis]);
