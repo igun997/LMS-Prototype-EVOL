@@ -92,6 +92,7 @@
               <thead>
                 <th>No</th>
                 <th>Ujian</th>
+                <th>PIN</th>
                 <th>Opsi</th>
               </thead>
               <tbody>

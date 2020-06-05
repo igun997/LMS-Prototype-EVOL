@@ -370,7 +370,7 @@ class AdminControl extends Controller
       if ($get->count() > 0) {
         $row = $get->first();
         foreach ($row->ujians as $key => $value) {
-          $data["data"][] = [($key+1),$value->nama_ujian,$value->id];
+          $data["data"][] = [($key+1),$value->nama_ujian,$value->pin,$value->id];
         }
         return response()->json($data);
       }else {
