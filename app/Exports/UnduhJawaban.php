@@ -9,14 +9,20 @@ use App\Models\{Admin,Banksoal,Guru,Jawaban,JawabanItem,Kela,Matpel,Rombel,Siswa
 class UnduhJawaban implements FromView
 {
     public $id;
-    public function __construct($id)
+    public $nis;
+    public function __construct($id,$nis = NULL)
     {
         $this->id = $id;
+        $this->nis = $nis;
     }
     public function view(): View
     {
         $data = [];
-        $d = Jawaban::where(["ujian_id"=>$this->id]);
+        if ($this->nis){
+            $d = Jawaban::where(["ujian_id"=>$this->id,"nis"=>$this->nis]);
+        }else{
+            $d = Jawaban::where(["ujian_id"=>$this->id]);
+        }
         $nis = [];
         $counter = [];
         foreach ($d->get() as $key => $value) {
