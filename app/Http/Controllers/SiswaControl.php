@@ -21,7 +21,7 @@ class SiswaControl extends Controller
             return response()->json(["status" => 0]);
         }
     }
-    public function unduh($id,$nis){
+    public function unduh($nis,$id){
 
         return Excel::download(new UnduhJawaban($id,$nis), 'unduh_'.$nis.'.xlsx');
     }
