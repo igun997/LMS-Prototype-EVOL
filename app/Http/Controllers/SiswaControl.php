@@ -23,7 +23,7 @@ class SiswaControl extends Controller
     }
     public function unduh($id,$nis){
 
-        return Excel::download(new UnduhJawaban($id,$nis), 'unduh_'+$nis+'.xlsx');
+        return Excel::download(new UnduhJawaban($id,$nis), 'unduh_'.$nis.'.xlsx');
     }
     public function ujian($nis)
     {
