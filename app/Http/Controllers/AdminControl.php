@@ -17,7 +17,7 @@ class AdminControl extends Controller
     public function unduh($id)
     {
       $nama = Ujian::where(["id"=>$id])->first()->nama_ujian;
-      return Excel::download(new UnduhJawaban($id), str_replace(" ","_",$nama).'.xlsx');
+      return Excel::download(new UnduhJawaban($id), str_replace("/","-",str_replace(" ","_",$nama)).'.xlsx');
     }
     public function api_homeread()
     {
