@@ -9,7 +9,7 @@
       <thead>
         <tr>
           <th colspan="9">Kunci Jawaban</th>
-          <th>{{$data[0]["rincian_kunci"]}}</th>
+          <th>{{((is_array($data) && count($data) > 0)?$data[0]["rincian_kunci"]:NULL)}}</th>
         </tr>
         <tr>
           <th rowspan="2">No</th>
