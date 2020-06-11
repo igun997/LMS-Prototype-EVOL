@@ -12,6 +12,9 @@
           <th>{{((is_array($data) && count($data) > 0)?$data[0]["rincian_kunci"]:NULL)}}</th>
         </tr>
         <tr>
+            <th colspan="10">* Jawaban Dengan Huruf "X" Menandakan Jawaban Kosong </th>
+        </tr>
+        <tr>
           <th rowspan="2">No</th>
           <th rowspan="2">Nama Siswa</th>
           <th rowspan="2">L/P</th>
