@@ -59,10 +59,10 @@ class SiswaControl extends Controller
                     $tutup = "Tidak Ditentukan";
                 }
                 if ($isSync->count() > 0) {
-                    $data["data"][] = [($key + 1), $value->matpel->nama, "(" . date("d-m-Y H:i:s", strtotime($value->tgl_dibuka)) . ") -> (" . $tutup . ")", $value->waktu . " Menit", $sync, "<button class='button button_small selesai' data-id='$value->id' disabled>Dikerjakan</button>"];
+                    $data["data"][] = [($key + 1), $value->matpel->nama."( ".$value->nama_ujian." )", "(" . date("d-m-Y H:i:s", strtotime($value->tgl_dibuka)) . ") -> (" . $tutup . ")", $value->waktu . " Menit", $sync, "<button class='button button_small selesai' data-id='$value->id' disabled>Dikerjakan</button>"];
                 } else {
 
-                    $data["data"][] = [($key + 1), $value->matpel->nama, "(" . date("d-m-Y H:i:s", strtotime($value->tgl_dibuka)) . ") -> (" . $tutup . ")", $value->waktu . " Menit", $sync, "<button class='button button_small unduh' data-id='$value->id'>Unduh</button>"];
+                    $data["data"][] = [($key + 1), $value->matpel->nama."( ".$value->nama_ujian." )", "(" . date("d-m-Y H:i:s", strtotime($value->tgl_dibuka)) . ") -> (" . $tutup . ")", $value->waktu . " Menit", $sync, "<button class='button button_small unduh' data-id='$value->id'>Unduh</button>"];
                 }
             }
         }
