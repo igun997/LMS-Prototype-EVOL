@@ -26,6 +26,7 @@ Route::get('/api/ujianread',"AdminControl@api_homeread")->name("login.api.read")
 Route::group(['middleware' => ['siswa']], function () {
   Route::get('/api/listujian/{nis?}',"SiswaControl@ujian");
   Route::get('/api/listsoal/{ujian?}',"SiswaControl@soal");
+  Route::get('/api/download_jawaban/{ujian}/nis/{nis}',"SiswaControl@unduh");
   Route::post('/api/jawaban',"SiswaControl@jawaban");
 });
 Route::group(['middleware' => ['admin']], function () {

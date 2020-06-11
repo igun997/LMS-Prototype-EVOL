@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\{Admin, Banksoal, Guru, Jawaban, JawabanItem, Kela, Matpel, Rombel, Siswa, Ujian, UjianItem};
+use App\Exports\{UnduhJawaban};
 
 class SiswaControl extends Controller
 {
@@ -19,7 +20,10 @@ class SiswaControl extends Controller
             return response()->json(["status" => 0]);
         }
     }
+    public function unduh($id,$nis){
 
+        return Excel::download(new UnduhJawaban($id,$nis), 'unduh_'+$nis+'.xlsx');
+    }
     public function ujian($nis)
     {
         $data = [];
