@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\{Admin, Banksoal, Guru, Jawaban, JawabanItem, Kela, Matpel, Rombel, Siswa, Ujian, UjianItem};
 use App\Exports\{UnduhJawaban};
+use Excel;
 
 class SiswaControl extends Controller
 {
