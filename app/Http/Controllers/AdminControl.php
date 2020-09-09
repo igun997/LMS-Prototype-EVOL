@@ -503,6 +503,10 @@ class AdminControl extends Controller
                 $op = [
                     "nis"=>"nis",
                     "password"=>"password",
+                    "nama"=>"nama",
+                    "jk"=>"jk",
+                    "jurusan"=>"jurusan",
+                    "kelas"=>"kelas",
                 ];
                 $cb = [];
                 $anon = function ($data){
@@ -516,11 +520,32 @@ class AdminControl extends Controller
                 };
                 $excel->type("array")->setLabel(1)->reformat($op)->operation($anon,$cb);
                 $debug = [];
+                $failed_insert = [];
                 foreach ($cb as $index => $item) {
-                    $find = Siswa::where(["nis"=>$item["nis"]])->update(["password"=>$item["password"]]);
-                    $debug[$item["nis"]] = $find;
+                    $find = Siswa::where(["nis"=>$item["nis"]]);
+                    if($find->count() > 0){
+                        $find->update(["password"=>$item["password"]]);
+                        $debug[$item["nis"]] = $find;
+                    }else{
+                        $build = [
+                            "nis"=>$item["nis"],
+                            "nama"=>$item["nama"],
+                            "alamat"=>"",
+                            "no_hp"=>"",
+                            "jk"=>(($item["jk"] == "L")?0:1),
+                            "foto"=>"",
+                            "email"=>"",
+                            "password"=>$item["password"],
+                            "kelas_id"=>$item["kelas"],
+                            "dibuat"=>date("Y-m-d H:i:s"),
+                        ];
+                        $save = Siswa::create($build);
+                        if (!$save){
+                            $failed_insert[] = $item["nis"];
+                        }
+                    }
                 }
-                return response()->json(["status"=>1,"datas"=>$debug],200);
+                return response()->json(["status"=>1,"datas"=>$debug,"insert_failed"=>$failed_insert],200);
             }
         }else{
             return response()->json(["status"=>0],400);
