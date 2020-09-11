@@ -489,6 +489,36 @@ class AdminControl extends Controller
       }
     }
 
+    public function api_siswaexport_template(Request $req)
+    {
+        $field_entry = [
+              "A1"=>"nis",
+              "B1"=>"nama",
+              "C1"=>"password",
+              "D1"=>"jk",
+              "E1"=>"kelas",
+        ];
+
+        $field_helper = [
+            "A1"=>"kelas_id",
+            "B1"=>"nama_kelas"
+        ];
+
+        $data = Kela::where(["rombel_id"=>$req->id])->whereRaw("kelas_id IS NOT NULL")->get();
+        foreach ($data as $index => $datum) {
+            $field_helper["A".($index+2)] = $data->id;
+            $field_helper["B".($index+2)] = $data->nama;
+        }
+        $create = new ImporterExcel();
+        $create->properties([
+            "creator"=>"SMK Kesehatan",
+            "title"=>"Template Siswa",
+            "subject"=>"",
+            "description"=>""
+        ])->setSheet(0)->write($field_entry,"Entry Data",TRUE)->setSheet(1)->write($field_helper,"Data Kelas",TRUE)->output();
+
+    }
+
     public function api_siswabulkpassword(Request $req){
         $req->validate([
             "excel"=>"mimes:xlsx|max:10000"
@@ -505,7 +535,6 @@ class AdminControl extends Controller
                     "password"=>"password",
                     "nama"=>"nama",
                     "jk"=>"jk",
-                    "jurusan"=>"jurusan",
                     "kelas"=>"kelas",
                 ];
                 $cb = [];

@@ -59,6 +59,7 @@ Route::group(['middleware' => ['admin']], function () {
   Route::post('/admin/siswa/api/edit/{id?}',"AdminControl@api_siswaedit")->name("admin.siswa.api.edit");
   Route::post('/admin/siswa/api/add',"AdminControl@api_siswaadd")->name("admin.siswa.api.add");
   Route::post('/admin/siswa/api/bulkpassword',"AdminControl@api_siswabulkpassword")->name("admin.siswa.api.bulkpassword");
+  Route::get('/admin/siswa/api/template',"AdminControl@api_siswaexport_template")->name("admin.siswa.api.download");
 
   Route::get('/admin/guru',"AdminControl@guru")->name("admin.guru");
   Route::get('/admin/guru/api/show/{id?}',"AdminControl@api_gurushow")->name("admin.guru.api.show");
