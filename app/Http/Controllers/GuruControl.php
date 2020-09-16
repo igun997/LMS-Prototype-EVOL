@@ -100,7 +100,7 @@ class GuruControl extends Controller
             $essay[] = $v->id;
           }
         }
-        $btn = "<button class='btn btn-primary koreksi' data-id='$value->id'>Koreksi</button>";
+        $btn = "<button class='btn btn-primary koreksi m-1' data-id='$value->id'>Koreksi</button>";
         $nilai = "<label class='badge badge-danger'>Perlu Koreksi Essay</label>";
         if (count($essay) == 0) {
           $btn = "<button class='btn btn-primary' disabled>Koreksi</button>";
@@ -121,6 +121,7 @@ class GuruControl extends Controller
           }
         }else {
           if ($value->essay != null) {
+           
             $tpg = 0;
             $totalPG = 0;
             foreach ($jawabanItem as $ke => $nilai_ex) {
@@ -147,6 +148,8 @@ class GuruControl extends Controller
             $nilai = "<span class='badge badge-primary m-1'>0</span> <span class='badge badge-danger m-1'>".number_format(($tpg*10)/($totalPG/10))."</span> <span class='badge badge-success m-1'>0</span>";
           }
         }
+         
+        $btn .= "<button class='btn btn-danger unduh m-1' data-id='".$value->id."' type='button'>Unduh</button>";
         $data["data"][] = [($key+1),$value->nis,$value->siswa->nama,$value->siswa->kela->kela->nama."_".$value->siswa->kela->nama,$nilai,date("d-m-Y",strtotime($value->dibuat)),$btn];
       }
       return response()->json($data);
