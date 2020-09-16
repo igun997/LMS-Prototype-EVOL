@@ -121,7 +121,7 @@ class GuruControl extends Controller
           }
         }else {
           if ($value->essay != null) {
-           
+
             $tpg = 0;
             $totalPG = 0;
             foreach ($jawabanItem as $ke => $nilai_ex) {
@@ -148,7 +148,7 @@ class GuruControl extends Controller
             $nilai = "<span class='badge badge-primary m-1'>0</span> <span class='badge badge-danger m-1'>".number_format(($tpg*10)/($totalPG/10))."</span> <span class='badge badge-success m-1'>0</span>";
           }
         }
-         
+
         $btn .= "<button class='btn btn-danger unduh m-1' data-id='".$value->id."' type='button'>Unduh</button>";
         $data["data"][] = [($key+1),$value->nis,$value->siswa->nama,$value->siswa->kela->kela->nama."_".$value->siswa->kela->nama,$nilai,date("d-m-Y",strtotime($value->dibuat)),$btn];
       }
@@ -359,5 +359,41 @@ class GuruControl extends Controller
       }else {
         return response()->json(["status"=>0]);
       }
+    }
+
+    public function api_getessay(Request $req)
+    {
+        $req->validate([
+            "id"=>"exists:jawaban,id"
+        ]);
+
+        $jawaban_id = $req->id;
+        $jawaban = Jawaban::where(["id"=>$jawaban_id]);
+        if ($jawaban->count() > 0){
+            $row = $jawaban->first();
+            $list_jawaban = $row->jawaban_items()->get();
+            foreach ($list_jawaban as $item) {
+                $item->ujian_item;
+                $item->ujian_item->banksoal;
+            }
+
+            $serve = [];
+            foreach ($list_jawaban as $list) {
+                if ($list->ujian_item->banksoal->jenis === "es"){
+                    $serve[] = [
+                        "jawaban_siswa"=>$list->jawaban,
+                        "kunci_jawaban"=>$list->ujian_item->banksoal->jawaban_es
+                    ];
+                }
+            }
+
+            $resp = [
+                "id"=>$jawaban_id,
+                "lists"=>$serve
+            ];
+
+            return  response()->json(["status"=>1,"data"=>$resp]);
+        }
+        return response()->json(["status"=>0]);
     }
 }
