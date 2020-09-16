@@ -421,9 +421,9 @@ class AdminControl extends Controller
           $totalPG = 0;
           foreach ($jawabanItem as $ke => $nilai_ex) {
             if ($nilai_ex->ujian_item->banksoal->jenis == "pg") {
-              $totalPG++;
-              if (strtoupper($nilai_ex->jawaban) == strtoupper($nilai_ex->ujian_item->banksoal->jawaban_pg)) {
-                $tpg++;
+                if (strtoupper($nilai_ex->jawaban) == strtoupper($nilai_ex->ujian_item->banksoal->jawaban_pg)) {
+                  $totalPG++;
+                  $tpg++;
               }
             }
           }
@@ -548,7 +548,7 @@ class AdminControl extends Controller
                     return $data;
                 };
                 $excel->type("array")->setLabel(1)->reformat($op)->operation($anon,$cb);
-                
+
                 // return response()->json($cb);
                 $debug = [];
                 $failed_insert = [];

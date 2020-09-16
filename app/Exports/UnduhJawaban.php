@@ -23,9 +23,15 @@ class UnduhJawaban implements FromView
         }else{
             $d = Jawaban::where(["ujian_id"=>$this->id]);
         }
+        $nilai_essay = [];
+        $nilai_essay[] = 0;
+
         $nis = [];
         $counter = [];
         foreach ($d->get() as $key => $value) {
+          if ($value->essay > 0){
+                $nilai_essay[] = $value->essay;
+          }
           $nis[] = $value->nis;
           $counter[] = ["nis"=>$value->nis,"id"=>$value->id];
         }
@@ -75,7 +81,7 @@ class UnduhJawaban implements FromView
           $itemKunci = implode("",$itemKunci);
           // $itemJawab = count($itemJawab);
           // $itemKunci = count($itemKunci);
-          $data[] = ["no"=>($key+1),"nama"=>$value->siswa->nama,"jk"=>(($value->siswa->jk == 0)?"Laki - Laki":"Perempuan"),"rician_jawaban"=>$itemJawab,"rincian_kunci"=>$itemKunci,"benar"=>$tpg,"salah"=>$fpg,"skor"=>$tpg,"nilai"=>(($tpg*10)/($totalPG/10)),"ket"=>""];
+          $data[] = ["no"=>($key+1),"nama"=>$value->siswa->nama,"jk"=>(($value->siswa->jk == 0)?"Laki - Laki":"Perempuan"),"rician_jawaban"=>$itemJawab,"rincian_kunci"=>$itemKunci,"benar"=>$tpg,"salah"=>$fpg,"skor"=>$tpg,"pg"=>(($tpg*10)/($totalPG/10)),"es"=>array_sum($nilai_essay),"nilai"=>((($tpg*10)/($totalPG/10))*0.5)+(array_sum($nilai_essay)*0.5),"ket"=>""];
         }
         return view('exports.jawaban', [
             'data' => $data

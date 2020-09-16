@@ -20,8 +20,9 @@
           <th rowspan="2">L/P</th>
           <th rowspan="2">Rincian Jawaban</th>
           <th colspan="2">Jumlah</th>
-          <th rowspan="2">Skor</th>
-          <th rowspan="2">Nilai</th>
+          <th rowspan="2">Nilai Essay</th>
+          <th rowspan="2">Nilai PG</th>
+          <th rowspan="2">Nilai Akhir</th>
           <th rowspan="2">Ket</th>
         </tr>
         <tr>
@@ -38,7 +39,8 @@
           <td>{{$v["rician_jawaban"]}}</td>
           <td>{{$v["benar"]}}</td>
           <td>{{$v["salah"]}}</td>
-          <td>{{$v["skor"]}}</td>
+          <td>{{$v["es"]}}</td>
+          <td>{{$v["pg"]}}</td>
           <td>{{$v["nilai"]}}</td>
           <td>{{$v["ket"]}}</td>
         </tr>
