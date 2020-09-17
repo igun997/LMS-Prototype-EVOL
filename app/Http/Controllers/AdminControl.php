@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+//s
 use Illuminate\Http\Request;
 use App\Models\{Admin,Banksoal,Guru,Jawaban,JawabanItem,Kela,Matpel,Rombel,Siswa,Ujian,UjianItem};
 use App\Exports\{UnduhJawaban};
@@ -421,9 +421,9 @@ class AdminControl extends Controller
           $totalPG = 0;
           foreach ($jawabanItem as $ke => $nilai_ex) {
             if ($nilai_ex->ujian_item->banksoal->jenis == "pg") {
-              $totalPG++;
-              if (strtoupper($nilai_ex->jawaban) == strtoupper($nilai_ex->ujian_item->banksoal->jawaban_pg)) {
-                $tpg++;
+                if (strtoupper($nilai_ex->jawaban) == strtoupper($nilai_ex->ujian_item->banksoal->jawaban_pg)) {
+                  $totalPG++;
+                  $tpg++;
               }
             }
           }
@@ -506,8 +506,8 @@ class AdminControl extends Controller
 
         $data = Kela::where(["rombel_id"=>$req->id])->whereRaw("kelas_id IS NOT NULL")->get();
         foreach ($data as $index => $datum) {
-            $field_helper["A".($index+2)] = $data->id;
-            $field_helper["B".($index+2)] = $data->nama;
+            $field_helper["A".($index+2)] = $datum->id;
+            $field_helper["B".($index+2)] = $datum->kela->nama." - ".$datum->nama;
         }
         $create = new ImporterExcel();
         $create->properties([
@@ -545,9 +545,11 @@ class AdminControl extends Controller
                             $res[] = $datum;
                         }
                     }
-                    return $res;
+                    return $data;
                 };
                 $excel->type("array")->setLabel(1)->reformat($op)->operation($anon,$cb);
+
+                // return response()->json($cb);
                 $debug = [];
                 $failed_insert = [];
                 foreach ($cb as $index => $item) {
@@ -556,6 +558,9 @@ class AdminControl extends Controller
                         $find->update(["password"=>$item["password"]]);
                         $debug[$item["nis"]] = $find;
                     }else{
+                        if($item["nama"] == "-"){
+                            continue;
+                        }
                         $build = [
                             "nis"=>$item["nis"],
                             "nama"=>$item["nama"],
