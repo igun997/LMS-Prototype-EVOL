@@ -17,6 +17,7 @@ class CreateJawabanTable extends Migration {
 			$table->integer('id', true);
 			$table->integer('ujian_id')->index('ujian_id');
 			$table->integer('nis')->index('nis');
+			$table->integer('essay')->nullable();
 			$table->timestamp('dibuat')->default(DB::raw('CURRENT_TIMESTAMP'));
 		});
 	}

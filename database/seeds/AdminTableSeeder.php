@@ -21,7 +21,7 @@ class AdminTableSeeder extends Seeder
             array (
                 'id' => 1,
                 'username' => 'admin',
-                'password' => 'admin',
+                'password' => '@Admin',
             ),
         ));
         
