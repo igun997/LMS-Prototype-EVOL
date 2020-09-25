@@ -81,7 +81,13 @@ class UnduhJawaban implements FromView
           $itemKunci = implode("",$itemKunci);
           // $itemJawab = count($itemJawab);
           // $itemKunci = count($itemKunci);
-          $data[] = ["no"=>($key+1),"nama"=>$value->siswa->nama,"jk"=>(($value->siswa->jk == 0)?"Laki - Laki":"Perempuan"),"rician_jawaban"=>$itemJawab,"rincian_kunci"=>$itemKunci,"benar"=>$tpg,"salah"=>$fpg,"skor"=>$tpg,"pg"=>(($tpg*10)/($totalPG/10)),"es"=>array_sum($nilai_essay),"nilai"=>((($tpg*10)/($totalPG/10))*0.5)+(array_sum($nilai_essay)*0.5),"ket"=>""];
+          if (array_sum($nilai_essay) > 0){
+              $final = ((($tpg*10)/($totalPG/10))*0.5)+(array_sum($nilai_essay)*0.5);
+          }else{
+              $final = (($tpg*10)/($totalPG/10));
+
+          }
+          $data[] = ["no"=>($key+1),"nama"=>$value->siswa->nama,"jk"=>(($value->siswa->jk == 0)?"Laki - Laki":"Perempuan"),"rician_jawaban"=>$itemJawab,"rincian_kunci"=>$itemKunci,"benar"=>$tpg,"salah"=>$fpg,"skor"=>$tpg,"pg"=>(($tpg*10)/($totalPG/10)),"es"=>array_sum($nilai_essay),"nilai"=>$final,"ket"=>""];
         }
         return view('exports.jawaban', [
             'data' => $data

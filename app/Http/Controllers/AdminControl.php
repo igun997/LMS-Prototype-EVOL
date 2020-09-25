@@ -421,8 +421,8 @@ class AdminControl extends Controller
           $totalPG = 0;
           foreach ($jawabanItem as $ke => $nilai_ex) {
             if ($nilai_ex->ujian_item->banksoal->jenis == "pg") {
+                $totalPG++;
                 if (strtoupper($nilai_ex->jawaban) == strtoupper($nilai_ex->ujian_item->banksoal->jawaban_pg)) {
-                  $totalPG++;
                   $tpg++;
               }
             }
