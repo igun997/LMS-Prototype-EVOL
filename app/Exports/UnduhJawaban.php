@@ -87,7 +87,7 @@ class UnduhJawaban implements FromView
               $final = (($tpg*10)/($totalPG/10));
 
           }
-          $data[] = ["no"=>($key+1),"nama"=>$value->siswa->nama,"jk"=>(($value->siswa->jk == 0)?"Laki - Laki":"Perempuan"),"rician_jawaban"=>$itemJawab,"rincian_kunci"=>$itemKunci,"benar"=>$tpg,"salah"=>$fpg,"skor"=>$tpg,"pg"=>(($tpg*10)/($totalPG/10)),"es"=>array_sum($nilai_essay),"nilai"=>$final,"ket"=>""];
+          $data[] = ["no"=>($key+1),"nama"=>$value->siswa->nama,"kelas"=>$value->siswa->kela->kela->nama." - ".$value->siswa->kela->nama,"jk"=>(($value->siswa->jk == 0)?"Laki - Laki":"Perempuan"),"rician_jawaban"=>$itemJawab,"rincian_kunci"=>$itemKunci,"benar"=>$tpg,"salah"=>$fpg,"skor"=>$tpg,"pg"=>(($tpg*10)/($totalPG/10)),"es"=>array_sum($nilai_essay),"nilai"=>$final,"ket"=>""];
         }
         return view('exports.jawaban', [
             'data' => $data

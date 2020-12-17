@@ -17,6 +17,7 @@
         <tr>
           <th rowspan="2">No</th>
           <th rowspan="2">Nama Siswa</th>
+          <th rowspan="2">Kelas</th>
           <th rowspan="2">L/P</th>
           <th rowspan="2">Rincian Jawaban</th>
           <th colspan="2">Jumlah</th>
@@ -35,6 +36,7 @@
         <tr>
           <td>{{$v["no"]}}</td>
           <td>{{$v["nama"]}}</td>
+          <td>{{$v["kelas"]}}</td>
           <td>{{$v["jk"]}}</td>
           <td>{{$v["rician_jawaban"]}}</td>
           <td>{{$v["benar"]}}</td>
