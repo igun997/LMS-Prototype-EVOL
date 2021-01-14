@@ -28,6 +28,7 @@
                   <th>Tgl. Ditutup</th>
                   <th>Waktu</th>
                   <th>PIN</th>
+                  <th>Jenis</th>
                   <th>Total Soal</th>
                   <th>Dibuat</th>
                   <th>Opsi</th>
@@ -54,10 +55,10 @@
         ajax:"{{route("guru.ujian.api.read")}}",
         createdRow:function(r,d,i){
           $("td",r).eq(5).html(d[5]+" Menit");
-          btn = '<button type="button" class="btn btn-primary view m-1" data-id="'+d[9]+'"><i class="fa fa-eye"></i></button>';
-          $("td",r).eq(9).html(btn);
-          btn = '<button type="button" class="btn btn-warning edit m-1" data-id="'+d[9]+'"><i class="fa fa-edit"></i></button>';
-          $("td",r).eq(9).append(btn);
+          btn = '<button type="button" class="btn btn-primary view m-1" data-id="'+d[10]+'"><i class="fa fa-eye"></i></button>';
+          $("td",r).eq(10).html(btn);
+          btn = '<button type="button" class="btn btn-warning edit m-1" data-id="'+d[10]+'"><i class="fa fa-edit"></i></button>';
+          $("td",r).eq(10).append(btn);
 
         }
     });

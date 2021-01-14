@@ -56,6 +56,14 @@
                     <label>Waktu (Menit)</label>
                     <input type="number" class="form-control" name="waktu" value="{{$selected->waktu}}">
                 </div>
+                <div class="form-group">
+                    <label>Jenis Ujian</label>
+                    <select name="type" id="type" class="form-control">
+                        @foreach(\App\Casts\UjianType::select($selected->type) as $key => $row)
+                            <option value="{{$row["id"]}}">{{$row["text"]}}</option>
+                        @endforeach
+                    </select>
+                </div>
               <div class="form-group">
                 <label>PIN</label>
                 <input type="text" class="form-control" name="pin" value="{{$selected->pin}}">

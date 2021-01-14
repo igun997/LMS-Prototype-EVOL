@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Casts\UjianType;
 use Illuminate\Http\Request;
 use App\Models\{Admin,Banksoal,Guru,Jawaban,JawabanItem,Kela,Matpel,Rombel,Siswa,Ujian,UjianItem};
 class GuruControl extends Controller
@@ -302,7 +303,7 @@ class GuruControl extends Controller
       foreach ($matpel as $key => $value) {
         $d[] = $value->id;
       }
-      $getUjian = Ujian::whereIn("matpel_id",$d)->get();
+      $getUjian = \App\Models\Revisi\Ujian::whereIn("matpel_id",$d)->get();
       $data = [];
       $data["data"] = [];
       foreach ($getUjian as $key => $value) {
@@ -310,7 +311,7 @@ class GuruControl extends Controller
         if ($value->tgl_ditutup != null) {
           $tutup = date("d-m-Y H:i:m",strtotime($value->tgl_ditutup));
         }
-        $data["data"][] = [($key+1),$value->nama_ujian,$value->matpel->nama,date("d-m-Y H:i:m",strtotime($value->tgl_dibuka)),$tutup,$value->waktu,$value->pin,$value->ujian_items->count(),date("d-m-Y",strtotime($value->dibuat)),$value->id];
+        $data["data"][] = [($key+1),$value->nama_ujian,$value->matpel->nama,date("d-m-Y H:i:m",strtotime($value->tgl_dibuka)),$tutup,$value->waktu,$value->pin,UjianType::lang($value->type),$value->ujian_items->count(),date("d-m-Y",strtotime($value->dibuat)),$value->id];
       }
       return response()->json($data);
     }
@@ -350,7 +351,7 @@ class GuruControl extends Controller
         unset($d["banksoal_id"]);
       }
       // return response()->json($d);
-      $s = Ujian::create($d);
+      $s = \App\Models\Revisi\Ujian::create($d);
       if ($s) {
         $lastid = $s->id;
         $newbsoal = [];

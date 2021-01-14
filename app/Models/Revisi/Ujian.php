@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Thu, 14 Jan 2021 04:35:48 +0000.
+ * Date: Thu, 14 Jan 2021 21:04:24 +0000.
  */
 
 namespace App\Models\Revisi;
@@ -17,6 +17,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property string $nama_ujian
  * @property \Carbon\Carbon $tgl_dibuka
  * @property \Carbon\Carbon $tgl_ditutup
+ * @property int $type
  * @property int $waktu
  * @property int $pin
  * @property \Carbon\Carbon $dibuat
@@ -33,6 +34,7 @@ class Ujian extends Eloquent
 
 	protected $casts = [
 		'matpel_id' => 'int',
+		'type' => 'int',
 		'waktu' => 'int',
 		'pin' => 'int'
 	];
@@ -48,6 +50,7 @@ class Ujian extends Eloquent
 		'nama_ujian',
 		'tgl_dibuka',
 		'tgl_ditutup',
+		'type',
 		'waktu',
 		'pin',
 		'dibuat'
