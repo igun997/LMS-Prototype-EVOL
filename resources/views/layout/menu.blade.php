@@ -57,6 +57,12 @@
         </a>
       </li>
       <li class="nav-item">
+          <a href="{{route("virtual.class.list")}}" class="nav-link">
+              <i class="nav-icon fas fa-dice-six"></i>
+              <p>Kelas Virtual</p>
+          </a>
+      </li>
+      <li class="nav-item">
         <a href="{{route("guru.banksoal")}}" class="nav-link">
           <i class="nav-icon fas fa-list"></i>
           <p>Bank Soal</p>

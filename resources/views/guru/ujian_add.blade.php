@@ -44,8 +44,8 @@
                 <input type="text" class="form-control date" name="tgl_ditutup" value="">
               </div>
               <div class="form-group">
-                <label>Waktu</label>
-                <input type="text" class="form-control" name="waktu" value="">
+                <label>Waktu (Menit)</label>
+                <input type="number" class="form-control" name="waktu" value="">
               </div>
               <div class="form-group">
                 <label>PIN</label>

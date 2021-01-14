@@ -90,7 +90,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     E-Learning
     </div>
     <!-- Default to the left -->
-    <strong>Copyright &copy; {{date("Y")}} <a href="{{url("")}}">SMK Kesehatan Rajawali</a>.</strong> All rights reserved.
+    <strong>Copyright &copy; {{date("Y")}} <a href="{{url("")}}">SMPN 56 Bandung</a>.</strong> All rights reserved.
   </footer>
 </div>
 <!-- ./wrapper -->

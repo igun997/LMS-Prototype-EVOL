@@ -11,6 +11,8 @@
 |
 */
 
+use Illuminate\Support\Facades\Route;
+
 Route::get('/',function(){
   return redirect(route("login"));
 });
@@ -98,4 +100,15 @@ Route::group(['middleware' => ['guru']], function () {
   Route::get('/guru/ujian/api/view/{id?}',"GuruControl@api_ujianview")->name("guru.ujian.api.view");
   Route::get('/guru/ujian/api/banksoal/{id?}',"GuruControl@api_ujiansoal")->name("guru.ujian.api.banksoal");
   Route::get('/guru/ujian/api/essay',"GuruControl@api_getessay")->name("guru.ujian.api.api_getessay");
+
+  Route::prefix("virtual")->name("virtual.")->namespace("Virtual")->group(function (){
+      Route::prefix("class")->name("class.")->group(function (){
+          Route::get("/","Classes@index")->name("list");
+          Route::get("/add","Classes@add")->name("add");
+          Route::post("/add","Classes@add_action")->name("add_action");
+          Route::get("/update/{id}","Classes@update")->name("update");
+          Route::get("/detail/{id}","Classes@detail")->name("detail");
+          Route::post("/update/{id}","Classes@update_action")->name("update_action");
+      });
+  });
 });
