@@ -2,8 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Casts\VirtualAttendance;
+use App\Casts\VirtualStatus;
 use Illuminate\Http\Request;
-use App\Models\{Admin, Banksoal, Guru, Jawaban, JawabanItem, Kela, Matpel, Rombel, Siswa, Ujian, UjianItem};
+use App\Models\{Admin,
+    Banksoal,
+    Guru,
+    Jawaban,
+    JawabanItem,
+    Kela,
+    Matpel,
+    Revisi\VirtualClass,
+    Revisi\VirtualClassAttendance,
+    Rombel,
+    Siswa,
+    Ujian,
+    UjianItem};
 use App\Exports\{UnduhJawaban};
 use Excel;
 
@@ -115,6 +129,60 @@ class SiswaControl extends Controller
         } else {
             return response()->json(["status" => 0]);
         }
+    }
+
+    public function virtual_class_list(Request  $req,$nis)
+    {
+        $kelas_id = Siswa::where(["nis"=>$nis])->first()->kelas_id;
+        $vclass = VirtualClass::where(["kelas_id"=>$kelas_id])->get();
+        foreach ($vclass as $index => &$vclas) {
+            $vclas->status_text = VirtualStatus::lang($vclas->status);
+            $vclas->present_status_id = @$vclas->virtual_class_attendances()->where(["siswa_id"=>$nis])->first()->status;
+            if ($vclas->present_status_id){
+                $vclas->present_status_text = VirtualAttendance::lang($vclas->virtual_class_attendances()->where(["siswa_id"=>$nis])->first()->status);
+            }else{
+                $vclas->present_status_text = null;
+            }
+        }
+        return response()->json(["status"=>1,"data"=>$vclass],200);
+    }
+
+    public function virtual_class(Request $req,$id)
+    {
+        $class = VirtualClass::findOrFail($id);
+        $create = VirtualClassAttendance::create([
+            "virtual_class_id"=>$id,
+            "present_pin"=>rand(1000,9999),
+            "sick_pin"=>rand(1000,9999),
+            "permission_pin"=>rand(1000,9999),
+            "status"=>VirtualAttendance::MASUK,
+            "siswa_id"=>$req->nis_siswa,
+        ]);
+        if ($create){
+            return response()->json(["status" => 1,"link"=>$class->link]);
+        }
+        return response()->json(["status" => 0]);
+    }
+
+    public function virtual_class_present(Request $req)
+    {
+        $pin = $req->pin;
+        $id = $req->id;
+
+        $assign = VirtualClassAttendance::where(["virtual_class_id"=>$id]);
+        if ($req->status == 1){
+            $assign = $assign->where(["present_pin"=>$pin]);
+        }elseif($req->status == 2){
+            $assign = $assign->where(["permission_pin"=>$pin]);
+        }elseif($req->status == 3){
+            $assign = $assign->where(["sick_pin"=>$pin]);
+        }
+        if ($assign->update(["status"=>$req->status])){
+            return response()->json(["status"=>1,"data"=>$req->all()]);
+        }
+        return response()->json(["status"=>0,"data"=>$req->all()]);
+
+
     }
 
 }

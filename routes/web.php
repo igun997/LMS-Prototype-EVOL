@@ -30,6 +30,9 @@ Route::group(['middleware' => ['siswa']], function () {
   Route::get('/api/listsoal/{ujian?}',"SiswaControl@soal");
   Route::get('/api/download_jawaban/{ujian}/nis/{nis}',"SiswaControl@unduh");
   Route::post('/api/jawaban',"SiswaControl@jawaban");
+  Route::get('/api/vclass/{id}',"SiswaControl@virtual_class_list");
+  Route::get('/api/vclass_detail/{id}',"SiswaControl@virtual_class");
+  Route::post('/api/vclass_present',"SiswaControl@virtual_class_present");
 });
 Route::group(['middleware' => ['admin']], function () {
   Route::get('/admin',"AdminControl@index")->name("admin.home");

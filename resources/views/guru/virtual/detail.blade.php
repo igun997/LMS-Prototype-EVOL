@@ -26,7 +26,16 @@
                                 </tr>
                             </thead>
                             <tbody>
-
+                                @foreach($data->virtual_class_attendances as $key => $row)
+                                    <tr>
+                                        <td>{{($key+1)}}</td>
+                                        <td>{{\App\Models\Revisi\Siswa::find($row->siswa_id)->nama}}</td>
+                                        <td>{{$row->present_pin}}</td>
+                                        <td>{{$row->sick_pin}}</td>
+                                        <td>{{$row->permission_pin}}</td>
+                                        <td>{{\App\Casts\VirtualAttendance::lang($row->status)}}</td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
