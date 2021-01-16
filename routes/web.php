@@ -114,4 +114,14 @@ Route::group(['middleware' => ['guru']], function () {
           Route::post("/update/{id}","Classes@update_action")->name("update_action");
       });
   });
+
+Route::prefix("wali")->name("wali.")->namespace("Wali")->group(function (){
+    Route::prefix("kelas")->name("kelas.")->group(function (){
+        Route::get("/","Kelas@index")->name("list");
+        Route::get("/add","Kelas@add")->name("add");
+        Route::get("/detail/{id}","Kelas@detail")->name("detail");
+        Route::get("/download/{id}","Kelas@download")->name("download");
+    });
+});
+
 });

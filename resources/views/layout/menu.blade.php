@@ -38,12 +38,6 @@
         </a>
       </li>
       <li class="nav-item">
-        <a href="" class="nav-link">
-          <i class="nav-icon fas fa-file"></i>
-          <p>Data Administrator</p>
-        </a>
-      </li>
-      <li class="nav-item">
         <a href="{{route("logout")}}" class="nav-link">
           <i class="nav-icon fas fa-sign-out-alt"></i>
           <p>Logout</p>
@@ -58,7 +52,7 @@
       </li>
       @if(\App\Models\Revisi\Kela::where(["guru_id"=>session()->get("id")])->count() > 0)
       <li class="nav-item">
-          <a href="{{route("virtual.class.list")}}" class="nav-link">
+          <a href="{{route("wali.kelas.list")}}" class="nav-link">
               <i class="nav-icon fas fa-dice-five"></i>
               <p>Wali Kelas</p>
           </a>

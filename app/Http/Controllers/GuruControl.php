@@ -406,4 +406,5 @@ class GuruControl extends Controller
         }
         return response()->json(["status"=>0]);
     }
+
 }
