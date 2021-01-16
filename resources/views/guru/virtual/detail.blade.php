@@ -19,9 +19,9 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Nama Siswa</th>
+                                    <th>PIN Hadir</th>
                                     <th>PIN Sakit</th>
                                     <th>PIN Ijin</th>
-                                    <th>PIN Hadir</th>
                                     <th>Status</th>
                                 </tr>
                             </thead>
