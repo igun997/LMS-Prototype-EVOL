@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Waktu pembuatan: 15 Jan 2021 pada 04.24
+-- Waktu pembuatan: 16 Jan 2021 pada 07.17
 -- Versi server: 8.0.22-0ubuntu0.20.04.3
 -- Versi PHP: 7.4.13
 
@@ -179,30 +179,31 @@ CREATE TABLE `kelas` (
   `id` int NOT NULL,
   `nama` varchar(80) COLLATE utf8mb4_unicode_ci NOT NULL,
   `rombel_id` int NOT NULL,
-  `kelas_id` int DEFAULT NULL
+  `kelas_id` int DEFAULT NULL,
+  `guru_id` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data untuk tabel `kelas`
 --
 
-INSERT INTO `kelas` (`id`, `nama`, `rombel_id`, `kelas_id`) VALUES
-(1, 'X', 2, NULL),
-(2, 'XI', 2, NULL),
-(3, 'XII', 2, NULL),
-(4, 'FARMASI', 2, 2),
-(5, 'TLM', 2, 2),
-(6, 'KEPERAWATAN', 2, 2),
-(7, 'KEPERAWATAN', 2, 3),
-(8, 'KEPERAWATAN', 1, 13),
-(9, 'FARMASI', 2, 3),
-(10, 'FARMASI', 1, 13),
-(11, 'TLM', 2, 3),
-(12, 'TLM', 1, 13),
-(13, 'XII_2019/2020', 1, NULL),
-(14, 'FARMASI', 2, 1),
-(15, 'KEPERAWATAN', 2, 1),
-(16, 'TLM', 2, 1);
+INSERT INTO `kelas` (`id`, `nama`, `rombel_id`, `kelas_id`, `guru_id`) VALUES
+(1, 'X', 2, NULL, NULL),
+(2, 'XI', 2, NULL, NULL),
+(3, 'XII', 2, NULL, NULL),
+(4, 'FARMASI', 2, 2, '001'),
+(5, 'TLM', 2, 2, NULL),
+(6, 'KEPERAWATAN', 2, 2, NULL),
+(7, 'KEPERAWATAN', 2, 3, '003'),
+(8, 'KEPERAWATAN', 1, 13, NULL),
+(9, 'FARMASI', 2, 3, NULL),
+(10, 'FARMASI', 1, 13, NULL),
+(11, 'TLM', 2, 3, NULL),
+(12, 'TLM', 1, 13, NULL),
+(13, 'XII_2019/2020', 1, NULL, NULL),
+(14, 'FARMASI', 2, 1, NULL),
+(15, 'KEPERAWATAN', 2, 1, NULL),
+(16, 'TLM', 2, 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -830,7 +831,8 @@ ALTER TABLE `jawaban_item`
 ALTER TABLE `kelas`
   ADD PRIMARY KEY (`id`),
   ADD KEY `rombel_id_fk` (`rombel_id`),
-  ADD KEY `kelas_id_fk` (`kelas_id`);
+  ADD KEY `kelas_id_fk` (`kelas_id`),
+  ADD KEY `guru_id` (`guru_id`);
 
 --
 -- Indeks untuk tabel `matpel`
@@ -988,7 +990,8 @@ ALTER TABLE `jawaban_item`
 --
 ALTER TABLE `kelas`
   ADD CONSTRAINT `kelas_ibfk_1` FOREIGN KEY (`rombel_id`) REFERENCES `rombel` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `kelas_ibfk_2` FOREIGN KEY (`kelas_id`) REFERENCES `kelas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `kelas_ibfk_2` FOREIGN KEY (`kelas_id`) REFERENCES `kelas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `kelas_ibfk_3` FOREIGN KEY (`guru_id`) REFERENCES `guru` (`nip`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Ketidakleluasaan untuk tabel `matpel`
