@@ -8,6 +8,7 @@ class UjianType
     const  UAS = 0;
     const  UTS = 1;
     const  HARIAN = 2;
+    const  REMEDIAL = 3;
 
 
     public static function lang($level)
@@ -18,6 +19,8 @@ class UjianType
             return "UTS";
         }elseif ($level == self::HARIAN){
             return "Harian";
+        }elseif ($level == self::REMEDIAL){
+            return "Remedial";
         }else{
             return  FALSE;
         }

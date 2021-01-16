@@ -85,22 +85,28 @@ class AdminControl extends Controller
     public function kelas()
     {
       $kelas = Kela::where("kelas_id","=",null)->get();
+      $guru = Guru::all();
       $rombel = Rombel::get();
-      return view("admin.kelas")->with(["title"=>"Data Kelas","kelas"=>$kelas,"rombel"=>$rombel]);
+      return view("admin.kelas")->with(["title"=>"Data Kelas","kelas"=>$kelas,"rombel"=>$rombel,"guru"=>$guru]);
     }
     public function api_kelasread()
     {
       $data = [];
       $data["data"] = [];
-      $d = Kela::get();
+      $d = \App\Models\Revisi\Kela::all();
       foreach ($d as $key => $value) {
-        $data["data"][] =[($key+1),((isset($value->kela->nama))?$value->kela->nama." - ":"").$value->nama,$value->rombel->nama,$value->siswas->count(),$value->id];
+        $guru = Guru::where(["nip"=>$value->guru_id]);
+        $nama = null;
+        if ($guru->count() > 0){
+            $nama = $guru->first()->nama;
+        }
+        $data["data"][] =[($key+1),((isset($value->kela->nama))?$value->kela->nama." - ":"").$value->nama,$value->rombel->nama,$value->siswas->count(),$nama,$value->guru_id,$value->id];
       }
       return response()->json($data);
     }
     public function api_kelashow($id)
     {
-      $d = Kela::where(["id"=>$id]);
+      $d = \App\Models\Revisi\Kela::where(["id"=>$id]);
       if ($d->count() > 0) {
         $ds = $d->first();
         return response()->json(["status"=>1,"data"=>$ds]);
@@ -114,7 +120,7 @@ class AdminControl extends Controller
         "nama"=>"required",
         "rombel_id"=>"required",
       ]);
-      $ins = Kela::where(["id"=>$id])->update($req->all());
+      $ins = \App\Models\Revisi\Kela::where(["id"=>$id])->update($req->all());
       if ($ins) {
         return response()->json(["status"=>1]);
       }else {
@@ -127,7 +133,7 @@ class AdminControl extends Controller
         "nama"=>"required",
         "rombel_id"=>"required",
       ]);
-      $ins = Kela::create($req->all());
+      $ins = \App\Models\Revisi\Kela::create($req->all());
       if ($ins) {
         return response()->json(["status"=>1]);
       }else {

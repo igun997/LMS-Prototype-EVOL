@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Thu, 14 Jan 2021 21:04:24 +0000.
+ * Date: Fri, 15 Jan 2021 23:47:23 +0000.
  */
 
 namespace App\Models\Revisi;
@@ -16,9 +16,11 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property string $nama
  * @property int $rombel_id
  * @property int $kelas_id
+ * @property string $guru_id
  * 
  * @property \App\Models\Revisi\Rombel $rombel
  * @property \App\Models\Revisi\Kela $kela
+ * @property \App\Models\Revisi\Guru $guru
  * @property \Illuminate\Database\Eloquent\Collection $kelas
  * @property \Illuminate\Database\Eloquent\Collection $matpels
  * @property \Illuminate\Database\Eloquent\Collection $siswas
@@ -38,7 +40,8 @@ class Kela extends Eloquent
 	protected $fillable = [
 		'nama',
 		'rombel_id',
-		'kelas_id'
+		'kelas_id',
+		'guru_id'
 	];
 
 	public function rombel()
@@ -49,6 +52,11 @@ class Kela extends Eloquent
 	public function kela()
 	{
 		return $this->belongsTo(\App\Models\Revisi\Kela::class, 'kelas_id');
+	}
+
+	public function guru()
+	{
+		return $this->belongsTo(\App\Models\Revisi\Guru::class);
 	}
 
 	public function kelas()

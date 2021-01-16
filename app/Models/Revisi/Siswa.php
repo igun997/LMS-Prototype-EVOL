@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Thu, 14 Jan 2021 21:04:24 +0000.
+ * Date: Fri, 15 Jan 2021 23:47:23 +0000.
  */
 
 namespace App\Models\Revisi;

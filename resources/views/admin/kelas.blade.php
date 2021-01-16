@@ -30,6 +30,14 @@
                   @endforeach
                 </select>
               </div>
+                <div class="form-group">
+                    <label>Wali Kelas</label>
+                    <select class="form-control" name="guru_id">
+                        @foreach($guru as $k => $v)
+                            <option value="{{$v->nip}}">{{$v->nama}}</option>
+                        @endforeach
+                    </select>
+                </div>
               <div class="form-group">
                 <label>Kelas Induk</label>
                 <select class="form-control" name="kelas_id">
@@ -54,6 +62,7 @@
                 <th>Nama Kelas</th>
                 <th>Rombel</th>
                 <th>Total Siswa</th>
+                <th>Wali Kelas</th>
                 <th>Opsi</th>
               </thead>
               <tbody>
@@ -73,8 +82,8 @@
   var dtable = $("#dtable").DataTable({
     ajax:"{{route("admin.kelas.api.read")}}",
     createdRow:function(r,d,i){
-      btn = '<button type="button" class="btn btn-warning ubah" data-id="'+d[4]+'" data-nama="'+d[1]+'">Ubah</button>';
-      $("td",r).eq(4).html(btn);
+      btn = '<button type="button" class="btn btn-warning ubah" data-id="'+d[6]+'" data-nama="'+d[1]+'">Ubah</button>';
+      $("td",r).eq(5).html(btn);
     }
   });
   var toggle = true;
@@ -100,12 +109,14 @@
     $.get("{{route("admin.kelas.api.show")}}/"+$(this).data("id"),function(s){
       if (s.status == 1) {
         $("#formSubmit input[name=nama]").val(s.data.nama);
+        $("#formSubmit input[name=guru_id]").val(s.data.guru_id);
         $("#formSubmit select[name=rombel_id]").val(s.data.rombel_id);
         if (s.data.kelas_id != null) {
           $("#formSubmit select[name=kelas_id]").val(s.data.kelas_id);
         }
         $("#formSubmit select[name=rombel_id]").trigger('change');
         $("#formSubmit select[name=kelas_id]").trigger('change');
+        $("#formSubmit select[name=guru_id]").trigger('change');
       }else {
         toastr.warning("Data Kelas Tidak Ditemukan");
       }
@@ -123,7 +134,8 @@
     }
     $.post(url,data,function(r){
       if (r.status == 1) {
-        toastr.success("Data Tersimpan")
+        toastr.success("Data Tersimpan");
+        setTimeout(()=>location.reload(),1000);
       }else {
         toastr.warning("Data Gagal Di Simpan")
       }
