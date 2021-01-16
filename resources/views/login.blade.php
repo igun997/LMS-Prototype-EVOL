@@ -14,7 +14,7 @@
 @endsection
 @section('konten')
 <div class="row">
-  <div class="col-6 offset-3">
+  <div class="col-4">
     <div class="card">
       <div class="card-header">
         <h5 class="m-0">Login</h5>
@@ -55,7 +55,7 @@
       </div>
     </div>
   </div>
-  <div class="col-12">
+  <div class="col-8">
     <div class="card">
       <div class="card-header">
         <h5 class="m-0">Data Ujian Terupload</h5>
