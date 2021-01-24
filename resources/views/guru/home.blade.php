@@ -25,6 +25,16 @@
                       <b>No HP</b> <a class="float-right">{{$identity->no_hp}}</a>
                   </li>
                   <li class="list-group-item">
+                      <b>Mata Pelajaran</b>
+                      <a class="float-right">
+                          @foreach($identity->matpels as $k => $r)
+                            <p>
+                                {{$r->nama}}
+                            </p>
+                          @endforeach
+                      </a>
+                  </li>
+                  <li class="list-group-item">
                       <b>Wali Kelas </b>
                       @foreach($identity->kelas as $kela)
                           <a class="float-right">{{$kela->kela->nama}} - {{$kela->nama}}</a>
