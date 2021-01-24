@@ -20,7 +20,7 @@
                         <div class="form-group">
                             <label for="kelas_id">Kelas</label>
                             <select name="kelas_id" id="kelas_id" class="form-control">
-                                @foreach(\App\Models\Revisi\Kela::whereNotNull("kelas_id")->where("rombel_id",\App\Casts\ModuleHelper::activeStudy())->get() as $row)
+                                @foreach(\App\Models\Revisi\Kela::whereNotNull("kelas_id")->get() as $row)
                                     <option value="{{$row->id}}" {{($row->id == @$data->kelas_id)?"selected":""}}>{{$row->kela->nama}} - {{$row->nama}}</option>
                                 @endforeach
                             </select>
