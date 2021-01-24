@@ -122,6 +122,9 @@ Route::prefix("wali")->name("wali.")->namespace("Wali")->group(function (){
         Route::get("/detail/{id}","Kelas@detail")->name("detail");
         Route::get("/download/{id}","Kelas@download")->name("download");
     });
+    Route::prefix("kenaikan")->name("kenaikan.")->group(function (){
+        Route::get("/","KenaikanKelas@index")->name("list");
+    });
 });
 
 });
