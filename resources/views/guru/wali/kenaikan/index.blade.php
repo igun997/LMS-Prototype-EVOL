@@ -35,11 +35,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($)
-                                <tr>
 
-                                </tr>
-                            @endforeach
                         </tbody>
                     </table>
                 </div>

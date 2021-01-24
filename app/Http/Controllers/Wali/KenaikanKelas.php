@@ -13,6 +13,7 @@ class KenaikanKelas extends Controller
     public function __construct()
     {
         $this->base = "guru.wali.kenaikan";
+        $this->middleware("guru");
     }
 
     public function index()
