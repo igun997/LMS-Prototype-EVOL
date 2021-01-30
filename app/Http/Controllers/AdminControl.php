@@ -495,6 +495,27 @@ class AdminControl extends Controller
       }
     }
 
+    public function api_guruexport_template(Request $req)
+    {
+        $field_entry = [
+            "A1"=>"nip",
+            "B1"=>"nama",
+            "C1"=>"password",
+            "D1"=>"jk",
+            "E1"=>"alamat",
+            "F1"=>"no_hp",
+        ];
+
+
+        $create = new ImporterExcel();
+        $create->properties([
+            "creator"=>"SMK Kesehatan",
+            "title"=>"Template Guru",
+            "subject"=>"",
+            "description"=>""
+        ])->setSheet(0)->write($field_entry,"Entry Data",TRUE)->output();
+
+    }
     public function api_siswaexport_template(Request $req)
     {
         $field_entry = [

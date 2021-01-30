@@ -17,7 +17,7 @@
           <button type="button" id="form" class="btn btn-default m-1">
             <i class="fa fa-plus"></i> Tambah Guru
           </button>
-            <a href="{{route("admin.siswa.api.download")}}" class="btn btn-primary m-1"><li class="fa fa-download"> Download Template Siswa</li></a>
+            <a href="{{route("admin.guru.api.download")}}" class="btn btn-primary m-1"><li class="fa fa-download"> Download Template Guru</li></a>
             <button type="button" id="formPassword" class="btn btn-default m-1">
                 <i class="fa fa-upload"></i> Upload Guru
             </button>
@@ -54,6 +54,17 @@
               </button>
             </div>
           </form>
+            <form class="" action="" id="bulk_excel" onsubmit="return false" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label>File</label>
+                    <input type="file" class="form-control-file" name="excel" placeholder="">
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success">
+                        Simpan
+                    </button>
+                </div>
+            </form>
         </div>
         <div class="col-md-12">
           <div class="table-responsive">
@@ -167,6 +178,7 @@
   temp = $("#formSubmit").html();
   console.log(temp);
   $("#formSubmit").hide();
+  $("#bulk_excel").hide();
   $("#form").on('click', function(event) {
     event.preventDefault();
     if (toggle) {
@@ -176,6 +188,15 @@
       $("#formSubmit").hide();
       toggle = true;
     }
+  });
+  let toggle1 = false;
+  $("#formPassword").on("click", function () {
+      if (toggle1) {
+          $("#bulk_excel").show();
+      } else {
+          $("#bulk_excel").hide();
+      }
+      toggle1 = !toggle1;
   });
   var url = null;
   $("#dtable").on('click','.ubah', function(event) {
