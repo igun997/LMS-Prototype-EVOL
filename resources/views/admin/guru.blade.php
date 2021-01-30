@@ -17,6 +17,10 @@
           <button type="button" id="form" class="btn btn-default m-1">
             <i class="fa fa-plus"></i> Tambah Guru
           </button>
+            <a href="{{route("admin.siswa.api.download")}}" class="btn btn-primary m-1"><li class="fa fa-download"> Download Template Siswa</li></a>
+            <button type="button" id="formPassword" class="btn btn-default m-1">
+                <i class="fa fa-upload"></i> Upload Guru
+            </button>
         </div>
         <div class="col-12">
           <form class="" action="" id="formSubmit" method="post">
