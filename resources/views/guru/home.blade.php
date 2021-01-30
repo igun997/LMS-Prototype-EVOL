@@ -29,7 +29,7 @@
                       <a class="float-right">
                           @foreach($identity->matpels as $k => $r)
                             <p>
-                                {{$r->nama}}
+                                {{$r->kela->kela->nama}} - {{$r->kela->nama}} / {{$r->nama}}
                             </p>
                           @endforeach
                       </a>

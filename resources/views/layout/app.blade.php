@@ -50,7 +50,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <a href="@yield("url")" class="brand-link">
       <img src="{{url("assets/logo/logo.png")}}" alt="SMK Kesahatan Rajawali" class="brand-image img-circle elevation-3"
            style="opacity: .8">
-      <span class="brand-text font-weight-light">E-Learning</span>
+      <span class="brand-text font-weight-light">LMS</span>
     </a>
 
     <!-- Sidebar -->
