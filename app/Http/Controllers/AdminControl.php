@@ -612,4 +612,71 @@ class AdminControl extends Controller
             return response()->json(["status"=>0],400);
         }
     }
+
+    public function api_gurubulkpassword(Request $req)
+    {
+        $req->validate([
+            "excel"=>"mimes:xlsx|max:10000"
+        ]);
+        $d = $req->all();
+        if ($req->has("excel")) {
+            $imageName = time() . '.' . $req->excel->getClientOriginalExtension();
+            $sa = $req->excel->move(public_path('upload'), $imageName);
+            if ($sa) {
+                $fullpath = public_path('upload')."/".$imageName;
+                $excel = new ImporterExcel($fullpath);
+                $op = [
+                    "nip"=>"nip",
+                    "password"=>"password",
+                    "nama"=>"nama",
+                    "jk"=>"jk",
+                    "alamat"=>"alamat",
+                    "no_hp"=>"no_hp",
+                ];
+                $cb = [];
+                $anon = function ($data){
+                    $res = [];
+                    foreach ($data as $index => $datum) {
+                        if ($datum["nip"] != null && $datum["password"] != ""){
+                            $res[] = $datum;
+                        }
+                    }
+                    return $data;
+                };
+                $excel->type("array")->setLabel(1)->reformat($op)->operation($anon,$cb);
+
+                // return response()->json($cb);
+                $debug = [];
+                $failed_insert = [];
+                foreach ($cb as $index => $item) {
+                    $find = Guru::where(["nip"=>$item["nip"]]);
+                    if($find->count() > 0){
+                        $find->update(["password"=>$item["password"]]);
+                        $debug[$item["nip"]] = $find;
+                    }else{
+                        if($item["nama"] == "-"){
+                            continue;
+                        }
+                        $build = [
+                            'nip'=>$item["nip"],
+                            'nama'=>$item["nama"],
+                            'alamat'=>$item["alamat"],
+                            'no_hp'=>$item["no_hp"],
+                            'email'=>rand(100,999).rand(100,999)."@gmail.com",
+                            'password'=>$item["password"],
+                            "dibuat"=>date("Y-m-d H:i:s"),
+
+                        ];
+                        $save = Guru::create($build);
+                        if (!$save){
+                            $failed_insert[] = $item["nip"];
+                        }
+                    }
+                }
+                return response()->json(["status"=>1,"datas"=>$debug,"insert_failed"=>$failed_insert],200);
+            }
+        }else{
+            return response()->json(["status"=>0],400);
+        }
+    }
 }

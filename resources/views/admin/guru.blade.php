@@ -179,6 +179,7 @@
   console.log(temp);
   $("#formSubmit").hide();
   $("#bulk_excel").hide();
+
   $("#form").on('click', function(event) {
     event.preventDefault();
     if (toggle) {
@@ -297,6 +298,41 @@
       }
     });
     }
+  });
+
+  $("#bulk_excel").on("submit", function () {
+      var form = $(this)[0]; // You need to use standard javascript object here
+      var formData = new FormData(form);
+      data = formData;
+      if (url == null) {
+          url = "{{route("admin.guru.api.bulkpassword")}}";
+      }
+      $.ajax({
+          url: url,
+          type: 'POST',
+          dataType: 'json',
+          processData: false,
+          contentType: false,
+          data: data
+      })
+          .done(function (r) {
+              if (r.status == 1) {
+                  toastr.success("Data Tersimpan")
+              } else {
+                  toastr.warning("Data Gagal Di Simpan")
+              }
+          })
+          .fail(function () {
+              toastr.warning("Anda Terputus Dengan Server");
+          })
+          .always(function () {
+              $("#bulk_excel")[0].reset();
+              $("#bulk_excel").hide();
+              dtable.ajax.reload();
+              url = null;
+              $("#bulk_excel").html(temp1);
+              $("#bulk_excel").hide();
+          });
   });
 </script>
 @endsection

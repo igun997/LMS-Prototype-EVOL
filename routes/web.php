@@ -72,6 +72,7 @@ Route::group(['middleware' => ['admin']], function () {
   Route::post('/admin/guru/api/edit/{id?}',"AdminControl@api_guruedit")->name("admin.guru.api.edit");
   Route::post('/admin/guru/api/add',"AdminControl@api_guruadd")->name("admin.guru.api.add");
   Route::get('/admin/guru/api/template',"AdminControl@api_guruexport_template")->name("admin.guru.api.download");
+  Route::post('/admin/guru/api/bulkpassword',"AdminControl@api_gurubulkpassword")->name("admin.guru.api.bulkpassword");
 
   Route::get('/admin/matpel',"AdminControl@matpel")->name("admin.matpel");
   Route::get('/admin/matpel/api/show/{id?}',"AdminControl@api_matpelshow")->name("admin.matpel.api.show");
