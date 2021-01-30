@@ -32,7 +32,7 @@ Route::group(['middleware' => ['siswa']], function () {
   Route::post('/api/jawaban',"SiswaControl@jawaban");
   Route::get('/api/vclass/{id}',"SiswaControl@virtual_class_list");
   Route::get('/api/vclass_detail/{id}',"SiswaControl@virtual_class");
-  Route::post('/api/vclass_present',"SiswaControl@virtual_class_present");
+  Route::get('/api/vclass_present',"SiswaControl@virtual_class_present");
 });
 Route::group(['middleware' => ['admin']], function () {
   Route::get('/admin',"AdminControl@index")->name("admin.home");
