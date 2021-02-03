@@ -46,12 +46,15 @@ class Classes extends Controller
     public function update_action(Request $req,$id)
     {
         $req->validate([
-            "downloadable"=>"mimes:doc,docx,pdf,jpg,jpeg,gif"
+            "downloadable.*"=>"mimes:doc,docx,pdf,jpg,jpeg,gif"
         ]);
 
         $data = $req->all();
 
         $data["downloadable"] = (($req->has("downloadable")) ? $this->uploader($req,"downloadable"):null);
+        if (is_array($data["downloadable"])){
+            $data["downloadable"] = implode(",",$data["downloadable"]);
+        }
         $data["guru_id"] = session()->get("id");
         $data["start_date"] = Carbon::createFromTimeString($req->start_date);
         $data["end_date"] = Carbon::createFromTimeString($req->end_date);
@@ -66,12 +69,15 @@ class Classes extends Controller
     public function add_action(Request $req)
     {
         $req->validate([
-            "downloadable"=>"mimes:doc,docx,pdf,jpg,jpeg,gif"
+            "downloadable.*"=>"mimes:doc,docx,pdf,jpg,jpeg,gif"
         ]);
 
         $data = $req->all();
 
         $data["downloadable"] = (($req->has("downloadable")) ? $this->uploader($req,"downloadable"):null);
+        if (is_array($data["downloadable"])){
+            $data["downloadable"] = implode(",",$data["downloadable"]);
+        }
         $data["guru_id"] = session()->get("id");
         $data["start_date"] = Carbon::createFromTimeString($req->start_date);
         $data["end_date"] = Carbon::createFromTimeString($req->end_date);

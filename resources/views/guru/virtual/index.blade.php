@@ -44,10 +44,12 @@
                                             <a href="{{$r->link}}" class="btn btn-flat btn-primary m-1">
                                                 <li class="fa fa-handshake"></li>
                                             </a>
-                                            @endif
-                                            <a href="{{$r->downloadable}}" class="btn btn-flat btn-primary m-1">
-                                                <li class="fa fa-download"></li>
-                                            </a>
+                                            @endif.
+                                            @foreach(explode(",",$r->downloadable) as $k => $item)
+                                                    <a href="{{$item}}" class="btn btn-flat btn-primary m-1">
+                                                        <li class="fa fa-download"></li> {{$k+1}}
+                                                    </a>
+                                            @endforeach
                                             <a href="{{route("virtual.class.update",$r->id)}}" class="btn btn-flat btn-warning m-1">
                                                 <li class="fa fa-edit"></li>
                                             </a>

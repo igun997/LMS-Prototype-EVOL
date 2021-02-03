@@ -31,7 +31,7 @@
                         </div>
                         <div class="form-group">
                             <label for="downloadable">Materi Terkait</label>
-                            <input type="file" name="downloadable" readonly class="form-control-file"  />
+                            <input type="file" multiple name="downloadable[]" readonly class="form-control-file"  />
                         </div>
                         <div class="form-group">
                             <label for="start_date">Waktu Mulai</label>

@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 
 class ModuleHelper
 {
-    public static function jitsi_link()
+    public static function jitsi_link($name="")
     {
         return "https://meet.jit.si/".Str::random(10);
     }

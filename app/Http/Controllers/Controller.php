@@ -43,11 +43,26 @@ class Controller extends BaseController
     public function uploader($req,$name)
     {
         $file = $req->file($name);
-        $name = Str::random(10).".".$req->file($name)->getClientOriginalExtension();
-        $upload = $file->storePubliclyAs("public/product",$name);
-        if ($upload){
-            $upload = str_replace("public",url("storage"),$upload);
+        if (isset($file[0])){
+            $upload_stack = [];
+            foreach ($file as $index => $item) {
+                $name = Str::random(10).".".$item->getClientOriginalExtension();
+                $upload = $item->storePubliclyAs("public/product",$name);
+                if ($upload){
+                    $upload = str_replace("public",url("storage"),$upload);
+                    $upload_stack[] = $upload;
+                }
+            }
+
+            return ($upload_stack)??false;
+        }else{
+
+            $name = Str::random(10).".".$req->file($name)->getClientOriginalExtension();
+            $upload = $file->storePubliclyAs("public/product",$name);
+            if ($upload){
+                $upload = str_replace("public",url("storage"),$upload);
+            }
+            return ($upload)??false;
         }
-        return ($upload)??false;
     }
 }
