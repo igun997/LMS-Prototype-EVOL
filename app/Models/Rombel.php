@@ -25,7 +25,8 @@ class Rombel extends Eloquent
 	public $timestamps = false;
 
 	protected $fillable = [
-		'nama'
+		'nama',
+		'status',
 	];
 
 	public function kelas()

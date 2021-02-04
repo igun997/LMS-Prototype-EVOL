@@ -53,7 +53,7 @@ class AdminControl extends Controller
       $data["data"] = [];
       $d = Rombel::get();
       foreach ($d as $key => $value) {
-        $data["data"][] =[($key+1),$value->nama,$value->kelas->count(),$value->id];
+        $data["data"][] =[($key+1),$value->nama,$value->status,$value->kelas->count(),$value->id];
       }
       return response()->json($data);
     }
