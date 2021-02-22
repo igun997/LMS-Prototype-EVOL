@@ -130,3 +130,5 @@ Route::prefix("wali")->name("wali.")->namespace("Wali")->group(function (){
 });
 
 });
+
+Route::get("profile","ProfileControl@index")->name("profile");

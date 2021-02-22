@@ -38,6 +38,12 @@
         </a>
       </li>
       <li class="nav-item">
+          <a href="{{route("profile")}}" class="nav-link">
+              <i class="nav-icon fa fa-user-alt"></i>
+              <p>Profil Saya</p>
+          </a>
+      </li>
+      <li class="nav-item">
         <a href="{{route("logout")}}" class="nav-link">
           <i class="nav-icon fas fa-sign-out-alt"></i>
           <p>Logout</p>
@@ -82,6 +88,13 @@
           <i class="nav-icon fas fa-question"></i>
           <p>Ujian</p>
         </a>
+      </li>
+
+      <li class="nav-item">
+          <a href="{{route("profile")}}" class="nav-link">
+              <i class="nav-icon fa fa-user-alt"></i>
+              <p>Profil Saya</p>
+          </a>
       </li>
       <li class="nav-item">
         <a href="{{route("logout")}}" class="nav-link">

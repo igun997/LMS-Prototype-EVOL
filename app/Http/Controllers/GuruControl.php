@@ -13,6 +13,7 @@ class GuruControl extends Controller
       $identity = \App\Models\Revisi\Guru::find(session()->get("id"));
       return view("guru.home")->with(["title"=>"Beranda Guru","identity"=>$identity]);
     }
+
     public function upload(Request $request)
     {
         $request->validate([
