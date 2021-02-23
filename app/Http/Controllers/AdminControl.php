@@ -74,7 +74,7 @@ class AdminControl extends Controller
     public function api_rombeladd(Request $req)
     {
       $req->validate([
-        "nama"=>"required|unique:rombel,nama"
+        "nama"=>"required"
       ]);
       $ins = Rombel::create($req->all());
       if ($ins) {
