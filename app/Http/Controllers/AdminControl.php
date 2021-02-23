@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 //s
 use App\Casts\RombelSemester;
 use Illuminate\Http\Request;
-use App\Models\{Admin,Banksoal,Guru,Jawaban,JawabanItem,Kela,Rombel,Siswa,Ujian,UjianItem};
+use App\Models\{Admin,Banksoal,Guru,Jawaban,JawabanItem,Kela,Siswa,Ujian,UjianItem};
+use App\Models\Revisi\Rombel;
 use App\Models\Revisi\Matpel;
 use App\Exports\{UnduhJawaban};
 use Excel;
