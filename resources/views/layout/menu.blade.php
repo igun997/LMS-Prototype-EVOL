@@ -57,14 +57,14 @@
         </a>
       </li>
       <li class="nav-item">
-          <a href="{{route("wali.kelas.list")}}" class="nav-link">
+          <a href="{{route("raport.list")}}" class="nav-link">
               <i class="nav-icon fas fa-dice-five"></i>
               <p> Pengisian Raport</p>
           </a>
       </li>
       @if(\App\Models\Revisi\Kela::where(["guru_id"=>session()->get("id")])->count() > 0)
       <li class="nav-item">
-          <a href="{{route("wali.kelas.list")}}" class="nav-link">
+          <a href="{{route("wali.raport.list")}}" class="nav-link">
               <i class="nav-icon fas fa-dice-five"></i>
               <p>Raport Siswa</p>
           </a>

@@ -105,7 +105,9 @@ Route::group(['middleware' => ['guru']], function () {
   Route::get('/guru/ujian/api/view/{id?}',"GuruControl@api_ujianview")->name("guru.ujian.api.view");
   Route::get('/guru/ujian/api/banksoal/{id?}',"GuruControl@api_ujiansoal")->name("guru.ujian.api.banksoal");
   Route::get('/guru/ujian/api/essay',"GuruControl@api_getessay")->name("guru.ujian.api.api_getessay");
-
+    Route::prefix("raport")->name("raport.")->group(function (){
+        Route::get("/","Raport@index_pengisian")->name("list");
+    });
   Route::prefix("virtual")->name("virtual.")->namespace("Virtual")->group(function (){
       Route::prefix("class")->name("class.")->group(function (){
           Route::get("/","Classes@index")->name("list");
@@ -115,8 +117,9 @@ Route::group(['middleware' => ['guru']], function () {
           Route::get("/detail/{id}","Classes@detail")->name("detail");
           Route::post("/update/{id}","Classes@update_action")->name("update_action");
       });
-  });
 
+
+  });
 Route::prefix("wali")->name("wali.")->namespace("Wali")->group(function (){
     Route::prefix("kelas")->name("kelas.")->group(function (){
         Route::get("/","Kelas@index")->name("list");
@@ -126,6 +129,13 @@ Route::prefix("wali")->name("wali.")->namespace("Wali")->group(function (){
     });
     Route::prefix("kenaikan")->name("kenaikan.")->group(function (){
         Route::get("/","KenaikanKelas@index")->name("list");
+    });
+    Route::prefix("raport")->name("raport.")->group(function (){
+        Route::get("/","Raport@index")->name("list");
+        Route::get("/add","Raport@add")->name("add");
+        Route::post("/add","Raport@add_action")->name("add.post");
+        Route::get("/detail/{id}","Raport@detail")->name("detail");
+        Route::get("/update/{id}","Raport@update")->name("update");
     });
 });
 
