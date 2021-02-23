@@ -106,7 +106,7 @@ Route::group(['middleware' => ['guru']], function () {
   Route::get('/guru/ujian/api/banksoal/{id?}',"GuruControl@api_ujiansoal")->name("guru.ujian.api.banksoal");
   Route::get('/guru/ujian/api/essay',"GuruControl@api_getessay")->name("guru.ujian.api.api_getessay");
     Route::prefix("raport")->name("raport.")->group(function (){
-        Route::get("/","Raport@index_pengisian")->name("list");
+        Route::get("/","RaportControl@index")->name("list");
     });
   Route::prefix("virtual")->name("virtual.")->namespace("Virtual")->group(function (){
       Route::prefix("class")->name("class.")->group(function (){

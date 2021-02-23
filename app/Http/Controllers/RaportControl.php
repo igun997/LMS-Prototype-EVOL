@@ -13,6 +13,7 @@ class RaportControl extends Controller
 
     public function index()
     {
-        return "Server Error";
+        $title = "Permintaan Pengisian Nilai Raport";
+        return $this->loadView("index",compact("title"));
     }
 }
