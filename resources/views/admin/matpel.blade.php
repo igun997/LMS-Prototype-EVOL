@@ -22,6 +22,10 @@
                 <label>Nama Mata Pelajaran</label>
                 <input type="text" class="form-control" name="nama" placeholder="" required>
               </div>
+            <div class="form-group">
+                <label>Golongan</label>
+                <input type="text" class="form-control" name="golongan" placeholder="" required>
+            </div>
               <div class="form-group">
                 <label>Kelas</label>
                 <select class="form-control" name="kelas_id">
@@ -58,6 +62,7 @@
               <thead>
                 <th>No</th>
                 <th>Nama</th>
+                <th>Golongan</th>
                 <th>Kelas</th>
                 <th>Pengampu</th>
                 <th>Opsi</th>
@@ -81,8 +86,8 @@
     ajax:"{{route("admin.matpel.api.read")}}",
     createdRow:function(r,d,i){
       // admin.listmatpel
-      btn = '<button type="button" class="btn btn-warning ubah" data-id="'+d[4]+'">Ubah</button>';
-      $("td",r).eq(4).html(btn);
+      btn = '<button type="button" class="btn btn-warning ubah" data-id="'+d[5]+'">Ubah</button>';
+      $("td",r).eq(5).html(btn);
     }
   });
   var toggle = true;

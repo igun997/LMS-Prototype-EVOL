@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 //s
 use App\Casts\RombelSemester;
 use Illuminate\Http\Request;
-use App\Models\{Admin,Banksoal,Guru,Jawaban,JawabanItem,Kela,Matpel,Rombel,Siswa,Ujian,UjianItem};
+use App\Models\{Admin,Banksoal,Guru,Jawaban,JawabanItem,Kela,Rombel,Siswa,Ujian,UjianItem};
+use App\Models\Revisi\Matpel;
 use App\Exports\{UnduhJawaban};
 use Excel;
 use Igun997\Utility\Debug;
@@ -309,7 +310,7 @@ class AdminControl extends Controller
         }else {
           $nkelas = $value->kela->nama;
         }
-        $data["data"][] =[($key+1),$value->nama,$nkelas,((isset($value->guru->nama))?$value->guru->nama:null),$value->id];
+        $data["data"][] =[($key+1),$value->nama,$value->golongan,$nkelas,((isset($value->guru->nama))?$value->guru->nama:null),$value->id];
       }
       return response()->json($data);
     }

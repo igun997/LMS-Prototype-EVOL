@@ -14,7 +14,6 @@ class RombelSemester
         if ($level == self::GANJIL){
             return "Ganjil";
         }elseif ($level == self::GENAP){
-
             return "Genap";
         }else{
             return  FALSE;
