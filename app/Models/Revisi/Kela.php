@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Fri, 15 Jan 2021 23:47:23 +0000.
+ * Date: Tue, 23 Feb 2021 01:12:27 +0000.
  */
 
 namespace App\Models\Revisi;
@@ -23,6 +23,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property \App\Models\Revisi\Guru $guru
  * @property \Illuminate\Database\Eloquent\Collection $kelas
  * @property \Illuminate\Database\Eloquent\Collection $matpels
+ * @property \Illuminate\Database\Eloquent\Collection $reports
  * @property \Illuminate\Database\Eloquent\Collection $siswas
  * @property \Illuminate\Database\Eloquent\Collection $virtual_classes
  *
@@ -67,6 +68,11 @@ class Kela extends Eloquent
 	public function matpels()
 	{
 		return $this->hasMany(\App\Models\Revisi\Matpel::class, 'kelas_id');
+	}
+
+	public function reports()
+	{
+		return $this->hasMany(\App\Models\Revisi\Report::class, 'kelas_id');
 	}
 
 	public function siswas()

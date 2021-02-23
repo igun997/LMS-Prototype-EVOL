@@ -10,47 +10,36 @@ namespace App\Models\Revisi;
 use Reliese\Database\Eloquent\Model as Eloquent;
 
 /**
- * Class VirtualClass
+ * Class Report
  * 
  * @property int $id
- * @property string $name
- * @property string $guru_id
  * @property int $kelas_id
- * @property string $link
- * @property string $downloadable
- * @property \Carbon\Carbon $start_date
- * @property \Carbon\Carbon $end_date
  * @property int $status
- * @property \Carbon\Carbon $updated_at
+ * @property string $guru_id
+ * @property int $rombel_id
  * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
  * 
  * @property \App\Models\Revisi\Guru $guru
  * @property \App\Models\Revisi\Kela $kela
- * @property \Illuminate\Database\Eloquent\Collection $virtual_class_attendances
+ * @property \App\Models\Revisi\Rombel $rombel
+ * @property \Illuminate\Database\Eloquent\Collection $report_lessons
  *
  * @package App\Models\Revisi
  */
-class VirtualClass extends Eloquent
+class Report extends Eloquent
 {
 	protected $casts = [
 		'kelas_id' => 'int',
-		'status' => 'int'
-	];
-
-	protected $dates = [
-		'start_date',
-		'end_date'
+		'status' => 'int',
+		'rombel_id' => 'int'
 	];
 
 	protected $fillable = [
-		'name',
-		'guru_id',
 		'kelas_id',
-		'link',
-		'downloadable',
-		'start_date',
-		'end_date',
-		'status'
+		'status',
+		'guru_id',
+		'rombel_id'
 	];
 
 	public function guru()
@@ -63,8 +52,13 @@ class VirtualClass extends Eloquent
 		return $this->belongsTo(\App\Models\Revisi\Kela::class, 'kelas_id');
 	}
 
-	public function virtual_class_attendances()
+	public function rombel()
 	{
-		return $this->hasMany(\App\Models\Revisi\VirtualClassAttendance::class);
+		return $this->belongsTo(\App\Models\Revisi\Rombel::class);
+	}
+
+	public function report_lessons()
+	{
+		return $this->hasMany(\App\Models\Revisi\ReportLesson::class);
 	}
 }

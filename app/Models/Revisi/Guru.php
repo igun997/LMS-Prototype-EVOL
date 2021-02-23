@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Fri, 15 Jan 2021 23:47:23 +0000.
+ * Date: Tue, 23 Feb 2021 01:12:27 +0000.
  */
 
 namespace App\Models\Revisi;
@@ -22,6 +22,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  *
  * @property \Illuminate\Database\Eloquent\Collection $kelas
  * @property \Illuminate\Database\Eloquent\Collection $matpels
+ * @property \Illuminate\Database\Eloquent\Collection $reports
  * @property \Illuminate\Database\Eloquent\Collection $virtual_classes
  *
  * @package App\Models\Revisi
@@ -58,6 +59,11 @@ class Guru extends Eloquent
 	public function matpels()
 	{
 		return $this->hasMany(\App\Models\Revisi\Matpel::class, 'nip');
+	}
+
+	public function reports()
+	{
+		return $this->hasMany(\App\Models\Revisi\Report::class);
 	}
 
 	public function virtual_classes()

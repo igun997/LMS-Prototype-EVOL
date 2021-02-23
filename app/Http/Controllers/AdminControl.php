@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 //s
+use App\Casts\RombelSemester;
 use Illuminate\Http\Request;
 use App\Models\{Admin,Banksoal,Guru,Jawaban,JawabanItem,Kela,Matpel,Rombel,Siswa,Ujian,UjianItem};
 use App\Exports\{UnduhJawaban};
@@ -53,7 +54,7 @@ class AdminControl extends Controller
       $data["data"] = [];
       $d = Rombel::get();
       foreach ($d as $key => $value) {
-        $data["data"][] =[($key+1),$value->nama,(($value->status)?"Aktif":"Tidak Aktif"),$value->kelas->count(),$value->id];
+        $data["data"][] =[($key+1),$value->nama,RombelSemester::lang($value->semester),(($value->status)?"Aktif":"Tidak Aktif"),$value->kelas->count(),$value->id];
       }
       return response()->json($data);
     }

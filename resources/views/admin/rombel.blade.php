@@ -29,6 +29,13 @@
                         <option value="1">Aktif</option>
                     </select>
                 </div>
+                <div class="form-group">
+                    <label>Semester</label>
+                    <select name="semester" id="semester" class="form-control">
+                        <option value="0">Ganjil</option>
+                        <option value="1">Genap</option>
+                    </select>
+                </div>
               <div class="form-group">
                 <button type="submit" class="btn btn-success">
                   Simpan
@@ -41,6 +48,7 @@
               <thead>
                 <th>No</th>
                 <th>Nama Rombel</th>
+                <th>Semester</th>
                 <th>Status</th>
                 <th>Jumlah Kelas Terkait</th>
                 <th>Opsi</th>
@@ -62,8 +70,8 @@
   var dtable = $("#dtable").DataTable({
     ajax:"{{route("admin.rombel.api.read")}}",
     createdRow:function(r,d,i){
-      btn = '<button type="button" class="btn btn-warning ubah" data-id="'+d[4]+'" data-nama="'+d[1]+'">Ubah</button>';
-      $("td",r).eq(4).html(btn);
+      btn = '<button type="button" class="btn btn-warning ubah" data-id="'+d[5]+'" data-nama="'+d[1]+'">Ubah</button>';
+      $("td",r).eq(5).html(btn);
     }
   });
   var toggle = true;

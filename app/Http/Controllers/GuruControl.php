@@ -10,7 +10,7 @@ class GuruControl extends Controller
     public function index()
     {
       $matpel = Matpel::where(["nip"=>session()->get("id")])->get();
-      $identity = \App\Models\Revisi\Guru::find(session()->get("id"));
+      $identity = \App\Models\Revisi\Guru::where(["nip"=>session()->get("id")])->first();
       return view("guru.home")->with(["title"=>"Beranda Guru","identity"=>$identity]);
     }
 

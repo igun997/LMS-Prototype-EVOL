@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Fri, 15 Jan 2021 23:47:23 +0000.
+ * Date: Tue, 23 Feb 2021 01:12:27 +0000.
  */
 
 namespace App\Models\Revisi;
@@ -14,12 +14,14 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * 
  * @property int $id
  * @property string $nama
+ * @property string $golongan
  * @property int $kelas_id
  * @property string $nip
  * 
  * @property \App\Models\Revisi\Kela $kela
  * @property \App\Models\Revisi\Guru $guru
  * @property \Illuminate\Database\Eloquent\Collection $banksoals
+ * @property \Illuminate\Database\Eloquent\Collection $report_lessons
  * @property \Illuminate\Database\Eloquent\Collection $ujians
  *
  * @package App\Models\Revisi
@@ -35,6 +37,7 @@ class Matpel extends Eloquent
 
 	protected $fillable = [
 		'nama',
+		'golongan',
 		'kelas_id',
 		'nip'
 	];
@@ -52,6 +55,11 @@ class Matpel extends Eloquent
 	public function banksoals()
 	{
 		return $this->hasMany(\App\Models\Revisi\Banksoal::class);
+	}
+
+	public function report_lessons()
+	{
+		return $this->hasMany(\App\Models\Revisi\ReportLesson::class);
 	}
 
 	public function ujians()
