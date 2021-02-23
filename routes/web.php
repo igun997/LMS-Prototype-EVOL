@@ -132,3 +132,4 @@ Route::prefix("wali")->name("wali.")->namespace("Wali")->group(function (){
 });
 
 Route::get("profile","ProfileControl@index")->name("profile");
+Route::post("profile","ProfileControl@update")->name("profile.post");

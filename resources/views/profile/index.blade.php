@@ -12,11 +12,11 @@
                     <h5 class="m-0">{{$title}}</h5>
                 </div>
                 <div class="card-body">
-                    <form action="" method="post" enctype="multipart/form-data">
+                    <form action="{{route("profile.post")}}" method="post" enctype="multipart/form-data">
                         @if(session()->get("level") === "admin")
                             <div class="form-group">
                                 <label for="name">Username</label>
-                                <input type="text" name="username" disabled value="{{$data->usarname ?? ""}}" class="form-control" />
+                                <input type="text" name="username" disabled value="{{$data->username ?? ""}}" class="form-control" />
                             </div>
 
                             <div class="form-group">
@@ -24,6 +24,18 @@
                                 <input type="password" name="password" value="{{$data->password ?? ""}}" class="form-control" />
                             </div>
                         @elseif(session()->get("level") === "guru")
+                            <div class="form-group">
+                                <label for="name">Username / NIP</label>
+                                <input type="text" name="username" disabled value="{{$data->nip ?? ""}}" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label for="name">Nama Lengkap</label>
+                                <input type="text" name="nama" value="{{$data->nama ?? ""}}" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label for="name">Password</label>
+                                <input type="password" name="password" value="{{$data->password ?? ""}}" class="form-control" />
+                            </div>
                         @endif
                         <div class="form-group">
                             <button class="btn btn-flat btn-warning btn-block" type="submit">
